@@ -8,7 +8,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "metas")
-data class Meta (
+data class Meta(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     val id: Int,
