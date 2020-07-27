@@ -1,14 +1,17 @@
 package hu.netcode.slog.service
 
+import com.github.slugify.Slugify
+import hu.netcode.slog.data.dto.PostDto
 import hu.netcode.slog.data.entity.Post
 import hu.netcode.slog.data.repository.PostRepository
+import javax.persistence.EntityNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import javax.persistence.EntityNotFoundException
 
 @Service
 class PostService(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
+    private val slugify: Slugify
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -24,5 +27,9 @@ class PostService(
         } else {
             throw EntityNotFoundException("The requested post was not found with id $id")
         }
+    }
+
+    fun save(dto: PostDto) {
+        //
     }
 }

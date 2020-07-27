@@ -1,6 +1,7 @@
 package hu.netcode.slog
 
 import hu.netcode.slog.service.ExceptionService
+import javax.persistence.EntityNotFoundException
 import javax.servlet.http.HttpServletRequest
 import javax.validation.ConstraintViolationException
 import org.slf4j.LoggerFactory
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import javax.persistence.EntityNotFoundException
 
 @RestControllerAdvice
 @RequestMapping(

@@ -31,6 +31,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.11.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.11.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.github.slugify:slugify:2.4")
     implementation("com.h2database:h2")
     implementation("org.flywaydb:flyway-core")
     implementation("org.hibernate.validator:hibernate-validator:6.1.2.Final")
