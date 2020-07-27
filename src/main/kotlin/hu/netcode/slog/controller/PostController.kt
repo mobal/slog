@@ -17,8 +17,8 @@ class PostController(
     private val postService: PostService
 ) {
     @GetMapping
-    fun get(): List<String> {
-        return emptyList()
+    fun get(): List<Post> {
+        return postService.findAll()
     }
 
     @GetMapping(value = ["/{id}"])

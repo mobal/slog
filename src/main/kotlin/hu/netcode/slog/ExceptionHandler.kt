@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import javax.persistence.EntityNotFoundException
 
 @RestControllerAdvice
 @RequestMapping(
@@ -25,6 +26,13 @@ class ExceptionHandler(
     fun handleConstraintViolationException(req: HttpServletRequest, ex: Exception): Map<String, Any> {
         logger.error("ConstraintViolationException {} {}", req, ex)
         return exceptionService.createResponseMap(ex, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(value = [EntityNotFoundException::class])
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    fun handleEntityNotFoundException(req: HttpServletRequest, ex: java.lang.Exception): Map<String, Any> {
+        logger.error("EntityNotFoundException {} {}", req, ex)
+        return exceptionService.createResponseMap(ex, HttpStatus.NOT_FOUND)
     }
 
     @ExceptionHandler(value = [Exception::class])
