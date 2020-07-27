@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("idea")
     id("jacoco")
+    id("org.flywaydb.flyway") version "6.5.2"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     id("org.sonarqube") version "2.7.1"
     id("org.springframework.boot") version "2.3.2.RELEASE"
@@ -53,6 +54,13 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "11"
     }
+}
+
+// TODO: Configure flyway properly!
+flyway {
+    password = "password"
+    user = "sa"
+    url = "jdbc:h2:mem:mydb"
 }
 
 jacoco {
