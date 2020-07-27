@@ -4,6 +4,7 @@ plugins {
     id("idea")
     id("jacoco")
     id("org.flywaydb.flyway") version "6.5.2"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.3.72"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     id("org.sonarqube") version "2.7.1"
     id("org.springframework.boot") version "2.3.2.RELEASE"
