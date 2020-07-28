@@ -2,6 +2,7 @@ package hu.netcode.slog.service
 
 import com.github.slugify.Slugify
 import hu.netcode.slog.data.dto.PostDto
+import hu.netcode.slog.data.entity.Meta
 import hu.netcode.slog.data.entity.Post
 import hu.netcode.slog.data.repository.PostRepository
 import javax.persistence.EntityNotFoundException
@@ -15,21 +16,36 @@ class PostService(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
+    private fun incrementViews(post: Post, value: Int = 1) {
+        post.meta.views += value
+        postRepository.save(post)
+    }
+
     fun findAll(): List<Post> {
         return postRepository.findAll()
     }
 
     @Throws(EntityNotFoundException::class)
     fun findById(id: Int): Post {
-        val optional = postRepository.findById(id)
-        if (optional.isPresent) {
-            return optional.get()
+        val op = postRepository.findById(id)
+        if (op.isPresent) {
+            val post = op.get()
+            incrementViews(post)
+            return post
         } else {
             throw EntityNotFoundException("The requested post was not found with id $id")
         }
     }
 
     fun save(dto: PostDto) {
-        //
+        postRepository.save(
+            Post(
+                author = "user",
+                body = dto.body,
+                title = dto.title,
+                meta = Meta(slug = slugify.slugify(dto.title)),
+                tagList = emptyList()
+            )
+        )
     }
 }

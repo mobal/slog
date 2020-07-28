@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS `posts`(
     `title` VARCHAR(255) NOT NULL,
     `created_at` TIMESTAMP,
     `deleted_at` TIMESTAMP,
-    `meta_id` INT,
     PRIMARY KEY(`id`)
 );
 
@@ -34,5 +33,4 @@ CREATE TABLE IF NOT EXISTS `posts_tags`(
     FOREIGN KEY(`tag_id`) REFERENCES `tags`(`id`)
 );
 
-ALTER TABLE `posts` ADD CONSTRAINT `fk_meta_id` FOREIGN KEY(`meta_id`) REFERENCES `metas`(`id`);
 ALTER TABLE `metas` ADD CONSTRAINT `fk_post_id` FOREIGN KEY(`post_id`) REFERENCES `posts`(`id`);

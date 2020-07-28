@@ -21,22 +21,22 @@ import javax.validation.constraints.NotEmpty
 data class Post(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    val id: Int,
+    val id: Int = 0,
     @NotEmpty
     val author: String,
     @Lob
     val body: String,
     @NotEmpty
     val title: String,
-    @JoinColumn(name = "meta_id", referencedColumnName = "id")
+    @JoinColumn(name = "id", referencedColumnName = "id")
     @OneToOne(cascade = [CascadeType.PERSIST])
     val meta: Meta,
-    @OneToMany
     @JoinTable(
         inverseJoinColumns = [JoinColumn(name = "tag_id")],
         joinColumns = [JoinColumn(name = "post_id")],
         name = "posts_tags"
     )
+    @OneToMany
     @JsonIgnore
     val tagList: List<Tag>,
     @Column(name = "created_at")

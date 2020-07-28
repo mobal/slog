@@ -7,9 +7,9 @@ INSERT INTO `tags`(`id`, `name`, `description`, `created_at`, `deleted_at`) VALU
     (DEFAULT, 'ipsum', null, NOW(), null),
     (DEFAULT, 'dolor', null, NOW(), null);
 
-INSERT INTO `metas`(`id`, `slug`, `views`) VALUES
-    (DEFAULT, 'lorem-ipsum', 10),
-    (DEFAULT, 'dolor', 10);
+INSERT INTO `metas`(`id`, `slug`, `views`, `post_id`) VALUES
+    (DEFAULT, 'lorem-ipsum', 10, 1),
+    (DEFAULT, 'dolor', 10, 2);
 
 INSERT INTO `posts_tags`(`id`, `post_id`, `tag_id`) VALUES
     (DEFAULT, '1', '1'),

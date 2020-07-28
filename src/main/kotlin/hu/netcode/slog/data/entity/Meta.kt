@@ -12,10 +12,10 @@ import javax.validation.constraints.NotEmpty
 data class Meta(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    val id: Int,
+    val id: Int = 0,
     @NotEmpty
-    val postId: Int,
+    val postId: Int = 0,
     @NotEmpty
     val slug: String,
-    val views: Int = 0
+    var views: Int = 0
 )
