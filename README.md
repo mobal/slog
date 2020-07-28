@@ -1,2 +1,2 @@
 # slog
-Simple blog backend with Spring
+Small blog backend with Spring
