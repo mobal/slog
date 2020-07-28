@@ -2,9 +2,9 @@ package hu.netcode.slog.service
 
 import hu.netcode.slog.data.entity.Tag
 import hu.netcode.slog.data.repository.TagRepository
+import javax.persistence.EntityNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import javax.persistence.EntityNotFoundException
 
 @Service
 class TagService(
