@@ -23,6 +23,7 @@ spring:
     database-platform: ${DB_PLATFORM}
     hibernate:
       ddl-auto: validate
+    open-in-view: false
   output:
     ansi:
       enabled: ALWAYS
