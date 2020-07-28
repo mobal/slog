@@ -20,9 +20,10 @@ spring:
     console:
       enabled: true
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: ${DB_PLATFORM}
     hibernate:
       ddl-auto: validate
+    open-in-view: false
   output:
     ansi:
       enabled: ALWAYS

@@ -1,11 +1,17 @@
 package hu.netcode.slog.controller
 
+import hu.netcode.slog.data.dto.PostDto
 import hu.netcode.slog.data.entity.Post
 import hu.netcode.slog.service.PostService
+import javax.validation.Valid
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -16,13 +22,19 @@ import org.springframework.web.bind.annotation.RestController
 class PostController(
     private val postService: PostService
 ) {
+    @PostMapping
+    @ResponseStatus(value = HttpStatus.CREATED)
+    fun create(@RequestBody @Valid dto: PostDto) {
+        postService.save(dto)
+    }
+
     @GetMapping
-    fun get(): List<Post> {
+    fun findAll(): List<Post> {
         return postService.findAll()
     }
 
     @GetMapping(value = ["/{id}"])
-    fun post(@PathVariable id: Int): Post {
+    fun findById(@PathVariable id: Int): Post {
         return postService.findById(id)
     }
 }

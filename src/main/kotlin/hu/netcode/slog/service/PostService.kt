@@ -1,16 +1,25 @@
 package hu.netcode.slog.service
 
+import com.github.slugify.Slugify
+import hu.netcode.slog.data.dto.PostDto
+import hu.netcode.slog.data.entity.Meta
 import hu.netcode.slog.data.entity.Post
 import hu.netcode.slog.data.repository.PostRepository
+import javax.persistence.EntityNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import javax.persistence.EntityNotFoundException
 
 @Service
 class PostService(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
+    private val slugify: Slugify
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
+
+    private fun incrementViews(post: Post, value: Int = 1) {
+        post.meta.views += value
+        postRepository.save(post)
+    }
 
     fun findAll(): List<Post> {
         return postRepository.findAll()
@@ -18,11 +27,25 @@ class PostService(
 
     @Throws(EntityNotFoundException::class)
     fun findById(id: Int): Post {
-        val optional = postRepository.findById(id)
-        if (optional.isPresent) {
-            return optional.get()
+        val op = postRepository.findById(id)
+        if (op.isPresent) {
+            val post = op.get()
+            incrementViews(post)
+            return post
         } else {
             throw EntityNotFoundException("The requested post was not found with id $id")
         }
+    }
+
+    fun save(dto: PostDto) {
+        postRepository.save(
+            Post(
+                author = "user",
+                body = dto.body,
+                title = dto.title,
+                meta = Meta(slug = slugify.slugify(dto.title)),
+                tagList = emptyList()
+            )
+        )
     }
 }
