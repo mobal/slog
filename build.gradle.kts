@@ -34,6 +34,7 @@ dependencies {
     implementation("com.github.slugify:slugify:2.4")
     implementation("com.h2database:h2")
     implementation("org.flywaydb:flyway-core")
+    implementation("org.apache.commons:commons-lang3:3.11")
     implementation("org.hibernate.validator:hibernate-validator:6.1.2.Final")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

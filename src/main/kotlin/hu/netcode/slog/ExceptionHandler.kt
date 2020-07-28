@@ -1,6 +1,7 @@
 package hu.netcode.slog
 
 import hu.netcode.slog.service.ExceptionService
+import java.lang.NullPointerException
 import javax.persistence.EntityNotFoundException
 import javax.servlet.http.HttpServletRequest
 import javax.validation.ConstraintViolationException
@@ -35,7 +36,7 @@ class ExceptionHandler(
         return exceptionService.createResponseMap(ex, HttpStatus.NOT_FOUND)
     }
 
-    @ExceptionHandler(value = [Exception::class])
+    @ExceptionHandler(value = [Exception::class, NullPointerException::class])
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     fun handleException(req: HttpServletRequest, ex: Exception): Map<String, Any> {
         logger.error("Exception {} {}", req, ex)
