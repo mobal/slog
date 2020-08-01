@@ -43,7 +43,9 @@ data class Post(
     val createdAt: ZonedDateTime = ZonedDateTime.now(),
     @Column(name = "deleted_at")
     @JsonIgnore
-    val deletedAt: ZonedDateTime? = null
+    val deletedAt: ZonedDateTime? = null,
+    @Column(name = "published_at")
+    val publishedAt: ZonedDateTime? = null
 ) {
     val tags: List<String>
         get() = tagList.map { it.name }.toList()
