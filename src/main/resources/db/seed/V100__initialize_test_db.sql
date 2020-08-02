@@ -1,6 +1,6 @@
-INSERT INTO `posts`(`id`, `author`, `body`, `title`, `created_at`, `deleted_at`) VALUES
-    (DEFAULT, 'mobal', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Lorem ipsum', NOW(), null),
-    (DEFAULT, 'mobal', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Dolor', NOW(), null);
+INSERT INTO `posts`(`id`, `author`, `body`, `title`, `created_at`, `deleted_at`, `published_at`) VALUES
+    (DEFAULT, 'mobal', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Lorem ipsum', NOW(), null, null),
+    (DEFAULT, 'mobal', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Dolor', NOW(), null, null);
 
 INSERT INTO `tags`(`id`, `name`, `description`, `created_at`, `deleted_at`) VALUES
     (DEFAULT, 'lorem', null, NOW(), null),
