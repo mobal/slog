@@ -25,7 +25,8 @@ class PostService(
 
     @Transactional
     fun findAll(): List<Post> {
-        val postList = postRepository.findAll()
+        val postList = postRepository.findByVisibleTrueAndDeletedAtIsNull()
+        // TODO: I am not sure this is the best solution to initialize a collection
         postList.forEach { Hibernate.initialize(it.tagList) }
         return postList
     }
@@ -33,7 +34,7 @@ class PostService(
     @Throws(EntityNotFoundException::class)
     @Transactional
     fun findById(id: Int): Post {
-        val op = postRepository.findById(id)
+        val op = postRepository.findByIdAndVisibleTrueAndDeletedAtIsNull(id)
         if (op.isPresent) {
             val post = op.get()
             Hibernate.initialize(post.tagList)
