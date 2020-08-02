@@ -1,6 +1,7 @@
 package hu.netcode.slog.data.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import org.hibernate.annotations.Type
 import java.time.ZonedDateTime
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -39,6 +40,9 @@ data class Post(
     @JoinColumn(name = "id", referencedColumnName = "id")
     @OneToOne(cascade = [CascadeType.PERSIST])
     val meta: Meta,
+    @Column(columnDefinition = "TINYINT", name = "visible")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    val visible: Boolean = true,
     @Column(name = "created_at")
     val createdAt: ZonedDateTime = ZonedDateTime.now(),
     @Column(name = "deleted_at")

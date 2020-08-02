@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `posts`(
     `author` VARCHAR(255) NOT NULL,
     `body` CLOB,
     `title` VARCHAR(255) NOT NULL,
+    `visible` TINYINT(1) DEFAULT(1) NOT NULL,
     `created_at` TIMESTAMP,
     `deleted_at` TIMESTAMP,
     `published_at` TIMESTAMP,
