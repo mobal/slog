@@ -28,21 +28,21 @@ data class Post(
     val body: String,
     @NotEmpty
     val title: String,
+    @JoinTable(
+            inverseJoinColumns = [JoinColumn(name = "tag_id")],
+            joinColumns = [JoinColumn(name = "post_id")],
+            name = "posts_tags"
+    )
+    @get:JsonIgnore
+    @OneToMany
+    val tagList: List<Tag>,
     @JoinColumn(name = "id", referencedColumnName = "id")
     @OneToOne(cascade = [CascadeType.PERSIST])
     val meta: Meta,
-    @JoinTable(
-        inverseJoinColumns = [JoinColumn(name = "tag_id")],
-        joinColumns = [JoinColumn(name = "post_id")],
-        name = "posts_tags"
-    )
-    @OneToMany
-    @JsonIgnore
-    val tagList: List<Tag>,
     @Column(name = "created_at")
     val createdAt: ZonedDateTime = ZonedDateTime.now(),
     @Column(name = "deleted_at")
-    @JsonIgnore
+    @get:JsonIgnore
     val deletedAt: ZonedDateTime? = null,
     @Column(name = "published_at")
     val publishedAt: ZonedDateTime? = null
