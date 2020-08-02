@@ -6,6 +6,8 @@ import hu.netcode.slog.data.entity.Meta
 import hu.netcode.slog.data.entity.Post
 import hu.netcode.slog.data.repository.PostRepository
 import javax.persistence.EntityNotFoundException
+import javax.transaction.Transactional
+import org.hibernate.Hibernate
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
@@ -21,15 +23,21 @@ class PostService(
         postRepository.save(post)
     }
 
+    @Transactional
     fun findAll(): List<Post> {
-        return postRepository.findAll()
+        val postList = postRepository.findByVisibleTrueAndDeletedAtIsNull()
+        // TODO: I am not sure this is the best solution to initialize a collection
+        postList.forEach { Hibernate.initialize(it.tagList) }
+        return postList
     }
 
     @Throws(EntityNotFoundException::class)
+    @Transactional
     fun findById(id: Int): Post {
-        val op = postRepository.findById(id)
+        val op = postRepository.findByIdAndVisibleTrueAndDeletedAtIsNull(id)
         if (op.isPresent) {
             val post = op.get()
+            Hibernate.initialize(post.tagList)
             incrementViews(post)
             return post
         } else {

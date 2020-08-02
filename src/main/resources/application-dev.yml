@@ -3,7 +3,7 @@ logging:
     ROOT: INFO
     org:
       flywaydb: DEBUG
-      hibernate: INFO
+      hibernate: DEBUG
       springframework:
         web: INFO
 server:

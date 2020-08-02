@@ -3,8 +3,10 @@ CREATE TABLE IF NOT EXISTS `posts`(
     `author` VARCHAR(255) NOT NULL,
     `body` CLOB,
     `title` VARCHAR(255) NOT NULL,
+    `visible` TINYINT(1) DEFAULT(1) NOT NULL,
     `created_at` TIMESTAMP,
     `deleted_at` TIMESTAMP,
+    `published_at` TIMESTAMP,
     PRIMARY KEY(`id`)
 );
 
@@ -34,3 +36,8 @@ CREATE TABLE IF NOT EXISTS `posts_tags`(
 );
 
 ALTER TABLE `metas` ADD CONSTRAINT `fk_post_id` FOREIGN KEY(`post_id`) REFERENCES `posts`(`id`);
+
+CREATE INDEX `idx_author` ON `posts`(`author`);
+
+CREATE INDEX `idx_title` ON `posts`(`title`);
+CREATE INDEX `idx_name` ON `tags`(`name`);
