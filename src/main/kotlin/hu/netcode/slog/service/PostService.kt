@@ -9,6 +9,7 @@ import javax.persistence.EntityNotFoundException
 import javax.transaction.Transactional
 import org.hibernate.Hibernate
 import org.slf4j.LoggerFactory
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -24,8 +25,8 @@ class PostService(
     }
 
     @Transactional
-    fun findAll(): List<Post> {
-        val postList = postRepository.findByVisibleTrueAndDeletedAtIsNull()
+    fun findAll(pageable: Pageable): List<Post> {
+        val postList = postRepository.findByVisibleTrueAndDeletedAtIsNull(pageable)
         // TODO: I am not sure this is the best solution to initialize a collection
         postList.forEach { Hibernate.initialize(it.tagList) }
         return postList
