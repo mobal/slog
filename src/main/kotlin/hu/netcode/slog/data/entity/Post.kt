@@ -51,6 +51,11 @@ data class Post(
     @Column(name = "published_at")
     val publishedAt: ZonedDateTime? = null
 ) {
+    @JsonIgnore
+    fun isDeleted(): Boolean {
+        return deletedAt != null
+    }
+
     val tags: List<String>
         get() = tagList.map { it.name }.toList()
 }
