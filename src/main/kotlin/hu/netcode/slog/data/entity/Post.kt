@@ -1,7 +1,6 @@
 package hu.netcode.slog.data.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import org.hibernate.annotations.Type
 import java.time.ZonedDateTime
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -16,6 +15,7 @@ import javax.persistence.OneToMany
 import javax.persistence.OneToOne
 import javax.persistence.Table
 import javax.validation.constraints.NotEmpty
+import org.hibernate.annotations.Type
 
 @Entity
 @Table(name = "posts")
