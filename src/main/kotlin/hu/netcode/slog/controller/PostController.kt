@@ -28,6 +28,7 @@ class PostController(
     private val postService: PostService
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
+
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     fun create(@RequestBody @Valid dto: PostDto) {
@@ -35,6 +36,7 @@ class PostController(
     }
 
     @GetMapping
+    @ResponseStatus(value = HttpStatus.OK)
     fun findAll(
         @RequestParam(
             defaultValue = "1",
@@ -47,6 +49,7 @@ class PostController(
     }
 
     @GetMapping(value = ["/{id}"])
+    @ResponseStatus(value = HttpStatus.OK)
     fun findById(@PathVariable id: Int): Post {
         return postService.findById(id)
     }
