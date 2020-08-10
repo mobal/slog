@@ -14,6 +14,9 @@ INSERT INTO `metas`(`id`, `slug`, `views`, `post_id`) VALUES
     (DEFAULT, 'dolor', 10, 2),
     (DEFAULT, 'amet', 0, 3);
 
+INSERT INTO `users`(`id`, `user_id`, `display_name`, `name`, `username`, `created_at`, `deleted_at`) VALUES
+    (DEFAULT, 100, 'dummy', 'dummy', 'dummy', NOW(), null);
+
 INSERT INTO `posts_tags`(`id`, `post_id`, `tag_id`) VALUES
     (DEFAULT, '1', '1'),
     (DEFAULT, '1', '2'),

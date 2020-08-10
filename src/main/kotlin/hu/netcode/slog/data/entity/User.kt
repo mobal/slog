@@ -1,5 +1,6 @@
 package hu.netcode.slog.data.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.ZonedDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -13,8 +14,10 @@ import javax.persistence.Table
 data class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @JsonIgnore
     val id: Int,
     @Column(name = "user_id")
+    @JsonIgnore
     val userId: String,
     @Column(name = "display_name")
     val displayName: String,
@@ -23,5 +26,6 @@ data class User(
     @Column(name = "created_at")
     val createdAt: ZonedDateTime,
     @Column(name = "deleted_at")
-    val deletedAt: ZonedDateTime
+    @JsonIgnore
+    val deletedAt: ZonedDateTime? = null
 )
