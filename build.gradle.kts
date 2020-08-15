@@ -28,6 +28,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.amazonaws:aws-java-sdk-s3:1.11.841")
     implementation("com.fasterxml.jackson.core:jackson-core:2.11.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.11.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

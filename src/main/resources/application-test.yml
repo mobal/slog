@@ -1,3 +1,7 @@
+amazons:
+  aws:
+    accessKey: ${AWS_ACCESSKEY}
+    secretKEy: ${AWS_SECRETKEY}
 logging:
   level:
     ROOT: INFO

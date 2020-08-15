@@ -3,12 +3,12 @@ package hu.netcode.slog.service
 import hu.netcode.slog.data.dto.UserDto
 import hu.netcode.slog.data.entity.User
 import hu.netcode.slog.data.repository.UserRepository
+import java.util.UUID
 import javax.persistence.EntityNotFoundException
 import javax.transaction.Transactional
 import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class UserService(
