@@ -1,12 +1,16 @@
 package hu.netcode.slog.controller
 
-import hu.netcode.slog.data.dto.input.PostDto
+import hu.netcode.slog.data.dto.input.UserDto
 import hu.netcode.slog.data.entity.User
 import hu.netcode.slog.properties.PagingProperties
 import hu.netcode.slog.service.UserService
+import java.net.URI
+import javax.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController
     produces = [MediaType.APPLICATION_JSON_VALUE],
     value = ["/api/users"]
 )
+@Validated
 class UserController(
     private val pagingProperties: PagingProperties,
     private val userService: UserService
@@ -40,6 +45,11 @@ class UserController(
 
     @PostMapping(value = ["/registration"])
     @ResponseStatus(value = HttpStatus.CREATED)
-    fun registration(@RequestBody postDto: PostDto) {
+    fun registration(@RequestBody userDto: UserDto, request: HttpServletRequest): ResponseEntity<Unit> {
+        logger.info("User registration started {}", userDto)
+        val user = userService.create(userDto)
+        val url = "https://${request.remoteHost}/api/users/${user.username}"
+        logger.info("New user can be found under the following address: {}", url)
+        return ResponseEntity.created(URI(url)).build()
     }
 }
