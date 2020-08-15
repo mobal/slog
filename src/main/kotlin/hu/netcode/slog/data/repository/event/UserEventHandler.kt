@@ -12,11 +12,6 @@ class UserEventHandler {
 
     @HandleAfterCreate
     fun handleAfterCreate(user: User) {
-        //
-    }
-
-    @HandleBeforeCreate
-    fun handleBeforeCreate(user: User) {
-        //
+        // TODO: Send activation email
     }
 }

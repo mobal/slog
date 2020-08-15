@@ -44,7 +44,8 @@ CREATE TABLE IF NOT EXISTS `users`(
     `password` VARCHAR(255),
     `username` VARCHAR(255) NOT NULL,
     `created_at` TIMESTAMP,
-    `deleted_at` TIMESTAMP
+    `deleted_at` TIMESTAMP,
+    `activation` VARCHAR(36)
 );
 
 ALTER TABLE `metas` ADD CONSTRAINT `fk_post_id` FOREIGN KEY(`post_id`) REFERENCES `posts`(`id`);

@@ -8,6 +8,7 @@ import javax.transaction.Transactional
 import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class UserService(
@@ -18,6 +19,7 @@ class UserService(
 
     fun create(userDto: UserDto): User {
         val user = User(
+            activation = UUID.randomUUID().toString(),
             email = userDto.email,
             name = userDto.name,
             password = bCryptPasswordEncoder.encode(userDto.password),
@@ -33,7 +35,7 @@ class UserService(
 
     @Transactional
     fun findByUsername(username: String): User {
-        val op = userRepository.findByUsername(username)
+        val op = userRepository.findByUsernameAndActivationIsNull(username)
         if (op.isPresent) {
             return op.get()
         } else {

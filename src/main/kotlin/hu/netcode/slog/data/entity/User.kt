@@ -36,8 +36,15 @@ data class User(
     val createdAt: ZonedDateTime = ZonedDateTime.now(),
     @Column(name = "deleted_at")
     @JsonIgnore
-    val deletedAt: ZonedDateTime? = null
+    val deletedAt: ZonedDateTime? = null,
+    @JsonIgnore
+    val activation: String? = null
 ) {
+    @JsonIgnore
+    fun isActive(): Boolean {
+        return !activation.isNullOrEmpty()
+    }
+
     @JsonIgnore
     fun isDeleted(): Boolean {
         return deletedAt != null
