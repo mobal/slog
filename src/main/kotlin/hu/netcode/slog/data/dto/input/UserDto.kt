@@ -1,4 +1,4 @@
-package hu.netcode.slog.data.dto
+package hu.netcode.slog.data.dto.input
 
 data class UserDto(
     val email: String,

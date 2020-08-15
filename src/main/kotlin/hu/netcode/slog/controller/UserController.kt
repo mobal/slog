@@ -1,6 +1,6 @@
 package hu.netcode.slog.controller
 
-import hu.netcode.slog.data.dto.PostDto
+import hu.netcode.slog.data.dto.input.PostDto
 import hu.netcode.slog.data.entity.User
 import hu.netcode.slog.properties.PagingProperties
 import hu.netcode.slog.service.UserService

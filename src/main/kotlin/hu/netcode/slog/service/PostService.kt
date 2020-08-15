@@ -1,7 +1,7 @@
 package hu.netcode.slog.service
 
 import com.github.slugify.Slugify
-import hu.netcode.slog.data.dto.PostDto
+import hu.netcode.slog.data.dto.input.PostDto
 import hu.netcode.slog.data.entity.Meta
 import hu.netcode.slog.data.entity.Post
 import hu.netcode.slog.data.repository.PostRepository

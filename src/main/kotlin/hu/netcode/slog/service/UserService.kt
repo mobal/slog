@@ -1,6 +1,6 @@
 package hu.netcode.slog.service
 
-import hu.netcode.slog.data.dto.UserDto
+import hu.netcode.slog.data.dto.input.UserDto
 import hu.netcode.slog.data.entity.User
 import hu.netcode.slog.data.repository.UserRepository
 import java.util.UUID
