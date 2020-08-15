@@ -1,7 +1,7 @@
-amazons:
+amazon:
   aws:
-    accessKey: ${AWS_ACCESSKEY}
-    secretKEy: ${AWS_SECRETKEY}
+    accessKey: ${AWS_ACCESSKEY:minioadmin}
+    secretKey: ${AWS_SECRETKEY:minioadmin}
 logging:
   level:
     ROOT: INFO
@@ -12,6 +12,9 @@ logging:
         web: INFO
 server:
   port: ${SERVER_PORT:8080}
+slog:
+  paging:
+    size: 10
 spring:
   datasource:
     driverClassName: org.h2.Driver

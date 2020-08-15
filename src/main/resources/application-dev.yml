@@ -1,7 +1,7 @@
 amazon:
   aws:
-    accessKey: ${AWS_ACCESSKEY}
-    secretKEy: ${AWS_SECRETKEY}
+    accessKey: ${AWS_ACCESSKEY:minioadmin}
+    secretKey: ${AWS_SECRETKEY:minioadmin}
 logging:
   level:
     ROOT: INFO
