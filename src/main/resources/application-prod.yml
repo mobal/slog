@@ -1,3 +1,7 @@
+amazon:
+  aws:
+    accessKey: ${AWS_ACCESSKEY:minioadmin}
+    secretKey: ${AWS_SECRETKEY:minioadmin}
 logging:
   level:
     ROOT: INFO
@@ -8,6 +12,9 @@ logging:
         web: INFO
 server:
   port: ${SERVER_PORT}
+slog:
+  paging:
+    size: 10
 spring:
   datasource:
     driverClassName: ${DB_DRIVER}
@@ -20,7 +27,7 @@ spring:
     console:
       enabled: true
   jpa:
-    database-platform: ${DB_PLATFORM}
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: validate
     open-in-view: false

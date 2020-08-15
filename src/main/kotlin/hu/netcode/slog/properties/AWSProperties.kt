@@ -4,7 +4,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConstructorBinding
-@ConfigurationProperties(prefix = "slog.paging")
-data class PagingProperties(
-    val size: Int
+@ConfigurationProperties(prefix = "amazon.aws")
+data class AWSProperties(
+    val accessKey: String,
+    val secretKey: String
 )

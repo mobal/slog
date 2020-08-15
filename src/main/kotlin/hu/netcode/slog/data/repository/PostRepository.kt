@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface PostRepository : PagingAndSortingRepository<Post, Int> {
-    fun findByVisibleTrueAndDeletedAtIsNull(pageable: Pageable): List<Post>
+    fun findByDeletedAtIsNullAndVisibleTrue(pageable: Pageable): List<Post>
 
-    fun findByIdAndVisibleTrueAndDeletedAtIsNull(id: Int): Optional<Post>
+    fun findByDeletedAtIsNullAndVisibleTrueAndId(id: Int): Optional<Post>
 }

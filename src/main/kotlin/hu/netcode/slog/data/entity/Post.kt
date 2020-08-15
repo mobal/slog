@@ -27,6 +27,9 @@ data class Post(
     val author: String,
     @Lob
     val body: String,
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    @OneToOne(cascade = [CascadeType.PERSIST])
+    val meta: Meta,
     @NotEmpty
     val title: String,
     @JoinTable(
@@ -34,26 +37,32 @@ data class Post(
             joinColumns = [JoinColumn(name = "post_id")],
             name = "posts_tags"
     )
-    @get:JsonIgnore
+    @JsonIgnore
     @OneToMany
     val tagList: List<Tag>,
-    @JoinColumn(name = "id", referencedColumnName = "id")
-    @OneToOne(cascade = [CascadeType.PERSIST])
-    val meta: Meta,
     @Column(columnDefinition = "TINYINT", name = "visible")
+    @JsonIgnore
     @Type(type = "org.hibernate.type.NumericBooleanType")
     val visible: Boolean = true,
     @Column(name = "created_at")
     val createdAt: ZonedDateTime = ZonedDateTime.now(),
     @Column(name = "deleted_at")
-    @get:JsonIgnore
+    @JsonIgnore
     val deletedAt: ZonedDateTime? = null,
     @Column(name = "published_at")
-    val publishedAt: ZonedDateTime? = null
+    @JsonIgnore
+    val publishedAt: ZonedDateTime? = null,
+    @Column(name = "updated_at")
+    val updatedAt: ZonedDateTime = ZonedDateTime.now()
 ) {
     @JsonIgnore
     fun isDeleted(): Boolean {
         return deletedAt != null
+    }
+
+    @JsonIgnore
+    fun isPublished(): Boolean {
+        return publishedAt != null
     }
 
     val tags: List<String>
