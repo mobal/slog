@@ -7,5 +7,6 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConfigurationProperties(prefix = "amazon.aws")
 data class AWSProperties(
     val accessKey: String,
+    val region: String,
     val secretKey: String
 )

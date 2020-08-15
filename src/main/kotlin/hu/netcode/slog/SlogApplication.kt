@@ -31,7 +31,7 @@ class SlogApplication(
             .withCredentials(AWSStaticCredentialsProvider(
                 BasicAWSCredentials(awsProperties.accessKey, awsProperties.secretKey))
             )
-            .withRegion(Regions.DEFAULT_REGION)
+            .withRegion(Regions.fromName(awsProperties.region))
             .build()
     }
 
