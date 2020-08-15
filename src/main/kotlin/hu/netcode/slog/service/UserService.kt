@@ -30,12 +30,12 @@ class UserService(
     }
 
     fun findAll(): List<User> {
-        return userRepository.findAll()
+        return userRepository.findByDeletedAtIsNullAndActivationIsNull()
     }
 
     @Transactional
     fun findByUsername(username: String): User {
-        val op = userRepository.findByUsernameAndActivationIsNull(username)
+        val op = userRepository.findByDeletedAtIsNullAndActivationIsNullAndUsername(username)
         if (op.isPresent) {
             return op.get()
         } else {

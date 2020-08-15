@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UserRepository : JpaRepository<User, Int> {
-    fun findByUsername(username: String): Optional<User>
+    fun findByDeletedAtIsNullAndActivationIsNull(): List<User>
 
-    fun findByUsernameAndActivationIsNull(username: String): Optional<User>
+    fun findByDeletedAtIsNullAndActivationIsNullAndUsername(username: String): Optional<User>
 }
