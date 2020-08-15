@@ -20,7 +20,7 @@ spring:
     console:
       enabled: true
   jpa:
-    database-platform: ${DB_PLATFORM}
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: validate
     open-in-view: false
