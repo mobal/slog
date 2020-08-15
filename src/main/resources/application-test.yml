@@ -1,15 +1,16 @@
 amazon:
   aws:
     accessKey: ${AWS_ACCESSKEY:minioadmin}
+    region: ${AWS_REGION:eu-central-1}
     secretKey: ${AWS_SECRETKEY:minioadmin}
 logging:
   level:
     ROOT: INFO
     org:
-      flywaydb: INFO
-      hibernate: INFO
+      flywaydb: WARN
+      hibernate: WARN
       springframework:
-        web: INFO
+        web: WARN
 server:
   port: ${SERVER_PORT:8080}
 slog:

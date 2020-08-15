@@ -1,13 +1,14 @@
 amazon:
   aws:
     accessKey: ${AWS_ACCESSKEY:minioadmin}
+    region: ${AWS_REGION:eu-central-1}
     secretKey: ${AWS_SECRETKEY:minioadmin}
 logging:
   level:
     ROOT: INFO
     org:
-      flywaydb: DEBUG
-      hibernate: DEBUG
+      flywaydb: INFO
+      hibernate: INFO
       springframework:
         web: INFO
 server:
