@@ -41,6 +41,7 @@ data class Post(
     @OneToMany
     val tagList: List<Tag>,
     @Column(columnDefinition = "TINYINT", name = "visible")
+    @JsonIgnore
     @Type(type = "org.hibernate.type.NumericBooleanType")
     val visible: Boolean = true,
     @Column(name = "created_at")
@@ -49,6 +50,7 @@ data class Post(
     @JsonIgnore
     val deletedAt: ZonedDateTime? = null,
     @Column(name = "published_at")
+    @JsonIgnore
     val publishedAt: ZonedDateTime? = null,
     @Column(name = "updated_at")
     val updatedAt: ZonedDateTime = ZonedDateTime.now()
@@ -56,6 +58,11 @@ data class Post(
     @JsonIgnore
     fun isDeleted(): Boolean {
         return deletedAt != null
+    }
+
+    @JsonIgnore
+    fun isPublished(): Boolean {
+        return publishedAt != null
     }
 
     val tags: List<String>
