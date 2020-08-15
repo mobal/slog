@@ -49,7 +49,9 @@ data class Post(
     @JsonIgnore
     val deletedAt: ZonedDateTime? = null,
     @Column(name = "published_at")
-    val publishedAt: ZonedDateTime? = null
+    val publishedAt: ZonedDateTime? = null,
+    @Column(name = "updated_at")
+    val updatedAt: ZonedDateTime = ZonedDateTime.now()
 ) {
     @JsonIgnore
     fun isDeleted(): Boolean {

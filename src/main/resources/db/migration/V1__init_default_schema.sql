@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `posts`(
     `created_at` TIMESTAMP,
     `deleted_at` TIMESTAMP,
     `published_at` TIMESTAMP,
+    `updated_at` TIMESTAMP,
     PRIMARY KEY(`id`)
 );
 
