@@ -37,6 +37,7 @@ class PostController(
         postService.save(dto)
     }
 
+    // TODO: check for published at timestamp
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     fun findAll(
@@ -50,6 +51,7 @@ class PostController(
         return postService.findAll(PageRequest.of(page - 1, pagingProperties.size))
     }
 
+    // TODO: Replace id with slug and check for published at date
     @GetMapping(value = ["/{id}"])
     @ResponseStatus(value = HttpStatus.OK)
     fun findById(@PathVariable id: Int): Post {
