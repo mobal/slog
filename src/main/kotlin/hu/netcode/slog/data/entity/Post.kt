@@ -40,8 +40,6 @@ data class Post(
     @JsonIgnore
     @OneToMany
     val tagList: List<Tag>,
-    @JsonIgnore
-    val user: User? = null,
     @Column(columnDefinition = "TINYINT", name = "visible")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     val visible: Boolean = true,
