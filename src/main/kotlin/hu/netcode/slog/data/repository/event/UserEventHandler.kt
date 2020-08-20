@@ -11,6 +11,6 @@ class UserEventHandler {
 
     @HandleAfterCreate
     fun handleAfterCreate(user: User) {
-        // TODO: Send activation email
+        logger.info("User {} successfully created", user)
     }
 }
