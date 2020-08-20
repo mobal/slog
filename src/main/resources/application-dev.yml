@@ -1,8 +1,11 @@
 amazon:
   aws:
-    accessKey: ${AWS_ACCESSKEY:minioadmin}
-    region: ${AWS_REGION:eu-central-1}
-    secretKey: ${AWS_SECRETKEY:minioadmin}
+    s3:
+      accessKey: ${S3_ACCESSKEY:minioadmin}
+      host: ${S3_HOST:http://localhost}
+      port: ${S3_PORT:9090}
+      region: ${S3_REGION:eu-central-1}
+      secretKey: ${S3_SECRETKEY:minioadmin}
 logging:
   level:
     ROOT: INFO
