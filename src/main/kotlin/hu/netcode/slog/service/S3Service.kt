@@ -6,15 +6,18 @@ import com.amazonaws.services.s3.model.Bucket
 import com.amazonaws.services.s3.model.CopyObjectResult
 import com.amazonaws.services.s3.model.DeleteObjectsRequest
 import com.amazonaws.services.s3.model.DeleteObjectsResult
+import com.amazonaws.services.s3.model.ObjectListing
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectResult
-import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Service
+import org.modelmapper.ModelMapper
 import java.io.IOException
 import java.io.InputStream
+import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Service
 
 @Service
 class S3Service(
+    private val modelMapper: ModelMapper,
     private val s3Client: AmazonS3
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
@@ -86,23 +89,18 @@ class S3Service(
         }
     }
 
-    fun listBuckets(): List<String> {
+    fun listBuckets(): List<Bucket> {
         try {
             return s3Client.listBuckets()
-                .map { it.name }
-                .toList()
         } catch (ex: AmazonClientException) {
             logger.error("Failed to list buckets because of an exception: {}", ex)
             throw ex
         }
     }
 
-    fun listObjects(bucketName: String): List<String> {
+    fun listObjects(bucketName: String): ObjectListing {
         try {
             return s3Client.listObjects(bucketName)
-                .objectSummaries
-                .map { it.key }
-                .toList()
         } catch (ex: AmazonClientException) {
             logger.error("Failed to list object from bucket {} because of an exception: {}", bucketName, ex)
             throw ex
