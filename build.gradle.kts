@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("com.adarshr.test-logger") version "2.1.0"
     id("idea")
     id("jacoco")
     id("org.flywaydb.flyway") version "6.5.2"
@@ -53,6 +54,7 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    systemProperty("spring.profiles.active", "test")
 }
 
 tasks.withType<KotlinCompile> {
