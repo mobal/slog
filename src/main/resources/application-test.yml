@@ -5,7 +5,7 @@ amazon:
     secretKey: ${AWS_SECRETKEY:minioadmin}
 logging:
   level:
-    ROOT: INFO
+    ROOT: WARN
     org:
       flywaydb: WARN
       hibernate: WARN
