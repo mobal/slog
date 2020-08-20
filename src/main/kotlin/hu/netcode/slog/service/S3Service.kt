@@ -9,9 +9,9 @@ import com.amazonaws.services.s3.model.DeleteObjectsResult
 import com.amazonaws.services.s3.model.ObjectListing
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectResult
-import org.modelmapper.ModelMapper
 import java.io.IOException
 import java.io.InputStream
+import org.modelmapper.ModelMapper
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 

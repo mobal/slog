@@ -1,6 +1,5 @@
 package hu.netcode.slog.controller
 
-import hu.netcode.slog.data.dto.output.S3ObjectDto
 import hu.netcode.slog.properties.PagingProperties
 import hu.netcode.slog.service.S3Service
 import org.slf4j.LoggerFactory
