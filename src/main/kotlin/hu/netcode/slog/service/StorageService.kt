@@ -26,6 +26,13 @@ class StorageService(
     }
 
     fun listObjects(bucketName: String): List<String> {
-        return emptyList()
+        when (val result = s3Service.listObjects(bucketName)) {
+            is Result.Success -> {
+                return result.value.objectSummaries.map { it.key }
+            }
+            is Result.Failure -> {
+                throw result.error
+            }
+        }
     }
 }
