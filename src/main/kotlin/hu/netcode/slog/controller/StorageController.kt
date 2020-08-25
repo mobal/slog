@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping(
     produces = [MediaType.APPLICATION_JSON_VALUE],
-    value = ["/api/s3"]
+    value = ["/api/storage"]
 )
 @Validated
 class StorageController(
