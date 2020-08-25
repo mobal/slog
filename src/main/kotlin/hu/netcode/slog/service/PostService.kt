@@ -32,7 +32,7 @@ class PostService(
         return postList
     }
 
-    @Throws(EntityNotFoundException::class)
+    @Throws(exceptionClasses = [EntityNotFoundException::class])
     @Transactional
     fun findById(id: Int): Post {
         val op = postRepository.findByDeletedAtIsNullAndVisibleTrueAndId(id)
