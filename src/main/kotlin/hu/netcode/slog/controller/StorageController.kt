@@ -1,5 +1,7 @@
 package hu.netcode.slog.controller
 
+import hu.netcode.slog.data.dto.output.BucketDto
+import hu.netcode.slog.data.dto.output.S3ObjectDto
 import hu.netcode.slog.service.StorageService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -24,13 +26,13 @@ class StorageController(
 
     @GetMapping(value = ["/buckets"])
     @ResponseStatus(value = HttpStatus.OK)
-    fun buckets(): List<String> {
+    fun buckets(): List<BucketDto> {
         return storageService.listBuckets()
     }
 
     @GetMapping(value = ["/buckets/{bucketName}"])
     @ResponseStatus(value = HttpStatus.OK)
-    fun objects(@PathVariable bucketName: String): List<String> {
+    fun objects(@PathVariable bucketName: String): List<S3ObjectDto> {
         return storageService.listObjects(bucketName)
     }
 
