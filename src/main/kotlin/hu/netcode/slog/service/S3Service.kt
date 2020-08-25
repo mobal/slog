@@ -12,13 +12,11 @@ import com.amazonaws.services.s3.model.PutObjectResult
 import hu.netcode.slog.result.Result
 import java.io.IOException
 import java.io.InputStream
-import org.modelmapper.ModelMapper
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
 @Service
 class S3Service(
-    private val modelMapper: ModelMapper,
     private val s3Client: AmazonS3
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)

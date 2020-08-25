@@ -9,7 +9,6 @@ import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import com.github.slugify.Slugify
 import hu.netcode.slog.properties.S3Properties
-import org.modelmapper.ModelMapper
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
@@ -26,11 +25,6 @@ class SlogApplication(
     @Bean
     fun bcryptPasswordEncoder(): BCryptPasswordEncoder {
         return BCryptPasswordEncoder()
-    }
-
-    @Bean
-    fun modelMapper(): ModelMapper {
-        return ModelMapper()
     }
 
     @Bean
