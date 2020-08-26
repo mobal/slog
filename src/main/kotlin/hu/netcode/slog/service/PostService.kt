@@ -5,15 +5,18 @@ import hu.netcode.slog.data.dto.input.PostDto
 import hu.netcode.slog.data.entity.Meta
 import hu.netcode.slog.data.entity.Post
 import hu.netcode.slog.data.repository.PostRepository
+import hu.netcode.slog.properties.PagingProperties
+import java.time.ZonedDateTime
 import javax.persistence.EntityNotFoundException
 import javax.transaction.Transactional
 import org.hibernate.Hibernate
 import org.slf4j.LoggerFactory
-import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 
 @Service
 class PostService(
+    private val pagingProperties: PagingProperties,
     private val postRepository: PostRepository,
     private val slugify: Slugify
 ) {
@@ -25,9 +28,18 @@ class PostService(
     }
 
     @Transactional
-    fun findAll(pageable: Pageable): List<Post> {
-        val postList = postRepository.findByDeletedAtIsNullAndVisibleTrue(pageable)
-        // TODO: I am not sure this is the best solution to initialize a collection
+    fun findAll(page: Int): List<Post> {
+        return postRepository.findByDeletedAtIsNullAndVisibleTrue(
+            PageRequest.of(page - 1, pagingProperties.size)
+        )
+    }
+
+    @Transactional
+    fun findAllActive(page: Int, threshold: ZonedDateTime = ZonedDateTime.now()): List<Post> {
+        val postList = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtIsNotNullAndPublishedAtBefore(
+            PageRequest.of(page - 1, pagingProperties.size),
+            threshold
+        )
         postList.forEach { Hibernate.initialize(it.tagList) }
         return postList
     }
@@ -38,7 +50,6 @@ class PostService(
         val op = postRepository.findByDeletedAtIsNullAndVisibleTrueAndId(id)
         if (op.isPresent) {
             val post = op.get()
-            Hibernate.initialize(post.tagList)
             incrementViews(post)
             return post
         } else {
