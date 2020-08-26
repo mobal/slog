@@ -23,6 +23,7 @@ import org.hibernate.annotations.Type
 data class Post(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @JsonIgnore
     val id: Int = 0,
     @NotEmpty
     val author: String,

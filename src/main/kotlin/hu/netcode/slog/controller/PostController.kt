@@ -47,10 +47,9 @@ class PostController(
         return postService.findAllActive(page)
     }
 
-    // TODO: Replace id with slug and check for published at date
-    @GetMapping(value = ["/{id}"])
+    @GetMapping(value = ["/{slug}"])
     @ResponseStatus(value = HttpStatus.OK)
-    fun findById(@PathVariable id: Int): Post {
-        return postService.findById(id)
+    fun findBySlug(@PathVariable slug: String): Post {
+        return postService.findBySlug(slug)
     }
 }

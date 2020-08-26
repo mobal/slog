@@ -35,10 +35,10 @@ class PostService(
     }
 
     @Transactional
-    fun findAllActive(page: Int, threshold: ZonedDateTime = ZonedDateTime.now()): List<Post> {
+    fun findAllActive(page: Int): List<Post> {
         val postList = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtIsNotNullAndPublishedAtBefore(
             PageRequest.of(page - 1, pagingProperties.size),
-            threshold
+            ZonedDateTime.now()
         )
         postList.forEach { Hibernate.initialize(it.tagList) }
         return postList
@@ -46,14 +46,17 @@ class PostService(
 
     @Throws(exceptionClasses = [EntityNotFoundException::class])
     @Transactional
-    fun findById(id: Int): Post {
-        val op = postRepository.findByDeletedAtIsNullAndVisibleTrueAndId(id)
+    fun findBySlug(slug: String): Post {
+        val op = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtIsNotNullAndPublishedAtBeforeAndMetaSlug(
+            ZonedDateTime.now(),
+            slug
+        )
         if (op.isPresent) {
             val post = op.get()
             incrementViews(post)
             return post
         } else {
-            throw EntityNotFoundException("The requested post was not found with id $id")
+            throw EntityNotFoundException("The requested post was not found with slug $slug")
         }
     }
 
