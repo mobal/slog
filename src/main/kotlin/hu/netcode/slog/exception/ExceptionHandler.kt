@@ -1,4 +1,4 @@
-package hu.netcode.slog
+package hu.netcode.slog.exception
 
 import com.amazonaws.AmazonClientException
 import hu.netcode.slog.service.ExceptionService
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
 @RequestMapping(
-        produces = [MediaType.APPLICATION_JSON_VALUE]
+    produces = [MediaType.APPLICATION_JSON_VALUE]
 )
 class ExceptionHandler(
     private val exceptionService: ExceptionService
