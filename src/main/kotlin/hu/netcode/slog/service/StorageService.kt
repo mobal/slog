@@ -7,13 +7,36 @@ import hu.netcode.slog.extension.toBucketDto
 import hu.netcode.slog.extension.toS3ObjectDto
 import hu.netcode.slog.result.Result
 import org.slf4j.LoggerFactory
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import java.io.InputStream
 
 @Service
 class StorageService(
     private val s3Service: S3Service
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
+
+    @Throws(exceptionClasses = [AmazonClientException::class])
+    fun put(bucketName: String, key: String, data: InputStream, mime: String): ResponseEntity<Unit> {
+        when (val putObjectResult = s3Service.putObject(bucketName, key, data, mime)) {
+            is Result.Success -> {
+                logger.info("Object {} stored successfully", key)
+                when (val getUrlResult = s3Service.getUrl(bucketName, key)) {
+                    is Result.Success -> {
+                        return ResponseEntity.created(getUrlResult.value)
+                            .build()
+                    }
+                    is Result.Failure -> {
+                        throw getUrlResult.error
+                    }
+                }
+            }
+            is Result.Failure -> {
+                throw putObjectResult.error
+            }
+        }
+    }
 
     @Throws(exceptionClasses = [AmazonClientException::class])
     fun getObject(bucketName: String, key: String): ByteArray {

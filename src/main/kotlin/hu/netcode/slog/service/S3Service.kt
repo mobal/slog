@@ -14,6 +14,7 @@ import java.io.IOException
 import java.io.InputStream
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import java.net.URI
 
 @Service
 class S3Service(
@@ -86,6 +87,15 @@ class S3Service(
             Result.Failure(ex)
         } catch (ex: IOException) {
             logger.error("Failed to convert object {} to byte array because of an exception: {}", key, ex)
+            Result.Failure(ex)
+        }
+    }
+
+    fun getUrl(bucketName: String, key: String): Result<URI> {
+        return try {
+            Result.Success(s3Client.getUrl(bucketName, key).toURI())
+        } catch (ex: Exception) {
+            logger.error("Failed to get url of an object because on an exception: {}", ex)
             Result.Failure(ex)
         }
     }
