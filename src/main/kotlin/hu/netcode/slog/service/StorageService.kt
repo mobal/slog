@@ -6,10 +6,10 @@ import hu.netcode.slog.data.dto.output.S3ObjectDto
 import hu.netcode.slog.extension.toBucketDto
 import hu.netcode.slog.extension.toS3ObjectDto
 import hu.netcode.slog.result.Result
+import java.io.InputStream
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
-import java.io.InputStream
 
 @Service
 class StorageService(

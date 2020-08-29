@@ -12,9 +12,9 @@ import com.amazonaws.services.s3.model.PutObjectResult
 import hu.netcode.slog.result.Result
 import java.io.IOException
 import java.io.InputStream
+import java.net.URI
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import java.net.URI
 
 @Service
 class S3Service(
