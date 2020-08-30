@@ -30,7 +30,7 @@ class StorageController(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    @PostMapping(value = ["/add"])
+    @PostMapping(value = ["/buckets/{bucketName}"])
     @ResponseStatus(value = HttpStatus.CREATED)
     fun add(@RequestBody @Valid objectDto: ObjectDto): ResponseEntity<Unit> {
         return storageService.put(objectDto.bucketName, objectDto.key, objectDto.data, objectDto.mime)
