@@ -33,7 +33,7 @@ class StorageController(
     @PostMapping(value = ["/buckets/{bucketName}"])
     @ResponseStatus(value = HttpStatus.CREATED)
     fun add(@RequestBody @Valid objectDto: ObjectDto): ResponseEntity<Unit> {
-        return storageService.put(objectDto.bucketName, objectDto.key, objectDto.data, objectDto.mime)
+        return storageService.putObject(objectDto.bucketName, objectDto.key, objectDto.data, objectDto.mime)
     }
 
     @GetMapping(value = ["/buckets"])
@@ -51,7 +51,7 @@ class StorageController(
     @DeleteMapping(value = ["/buckets/{bucketName}/{key}"])
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     fun delete(@PathVariable bucketName: String, @PathVariable key: String): ResponseEntity<Unit> {
-        return storageService.delete(bucketName, key)
+        return storageService.deleteObject(bucketName, key)
     }
 
     @PostMapping(value = ["/move"])

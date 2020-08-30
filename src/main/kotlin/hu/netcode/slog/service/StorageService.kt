@@ -30,7 +30,7 @@ class StorageService(
         }
     }
 
-    fun delete(bucketName: String, key: String): ResponseEntity<Unit> {
+    fun deleteObject(bucketName: String, key: String): ResponseEntity<Unit> {
         when(val result = s3Service.deleteObject(bucketName, key)) {
             is Result.Success -> {
                 return ResponseEntity.noContent()
@@ -43,19 +43,19 @@ class StorageService(
     }
 
     @Throws(exceptionClasses = [AmazonClientException::class])
-    fun put(bucketName: String, key: String, data: String, mime: String): ResponseEntity<Unit> {
+    fun putObject(bucketName: String, key: String, data: String, mime: String): ResponseEntity<Unit> {
         return when (val result = decode(data)) {
             is Result.Success -> {
-                put(bucketName, key, result.value, mime)
+                putObject(bucketName, key, result.value, mime)
             }
             is Result.Failure -> {
-                put(bucketName, key, data.toByteArray(), mime)
+                putObject(bucketName, key, data.toByteArray(), mime)
             }
         }
     }
 
     @Throws(exceptionClasses = [AmazonClientException::class])
-    fun put(bucketName: String, key: String, bytes: ByteArray, mime: String): ResponseEntity<Unit> {
+    fun putObject(bucketName: String, key: String, bytes: ByteArray, mime: String): ResponseEntity<Unit> {
         when (val putObjectResult = s3Service.putObject(bucketName, key, ByteArrayInputStream(bytes), mime)) {
             is Result.Success -> {
                 logger.info("""Object "{}" stored successfully""".trimMargin(), key)
