@@ -1,7 +1,6 @@
 package hu.netcode.slog.data.dto.input
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.io.InputStream
 import javax.validation.constraints.NotEmpty
 
 data class ObjectDto(
@@ -9,7 +8,7 @@ data class ObjectDto(
     @NotEmpty
     val bucketName: String,
     @NotEmpty
-    val data: InputStream,
+    val data: String,
     @JsonProperty(value = "name")
     @NotEmpty
     val key: String,
