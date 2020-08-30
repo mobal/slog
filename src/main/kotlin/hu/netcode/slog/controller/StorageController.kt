@@ -50,8 +50,8 @@ class StorageController(
 
     @DeleteMapping(value = ["/buckets/{bucketName}/{key}"])
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable bucketName: String, @PathVariable key: String) {
-        // TODO: Add implementation
+    fun delete(@PathVariable bucketName: String, @PathVariable key: String): ResponseEntity<Unit> {
+        return storageService.delete(bucketName, key)
     }
 
     @PostMapping(value = ["/move"])

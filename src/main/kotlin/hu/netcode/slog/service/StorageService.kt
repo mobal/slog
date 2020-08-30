@@ -30,6 +30,18 @@ class StorageService(
         }
     }
 
+    fun delete(bucketName: String, key: String): ResponseEntity<Unit> {
+        when(val result = s3Service.deleteObject(bucketName, key)) {
+            is Result.Success -> {
+                return ResponseEntity.noContent()
+                        .build<Unit>()
+            }
+            is Result.Failure -> {
+                throw result.error
+            }
+        }
+    }
+
     @Throws(exceptionClasses = [AmazonClientException::class])
     fun put(bucketName: String, key: String, data: String, mime: String): ResponseEntity<Unit> {
         return when (val result = decode(data)) {
