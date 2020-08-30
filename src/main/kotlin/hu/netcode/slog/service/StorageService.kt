@@ -25,13 +25,14 @@ class StorageService(
             logger.info("Data successfully decoded from Base64 encoded string")
             result
         } catch (ex: IllegalArgumentException) {
-            logger.info("Failed to decode string because of an exception. It is possible that is not a binary file {}", ex)
+            logger.info("Failed to decode string because of an exception. It is possible that is not a binary file {}",
+                    ex)
             Result.Failure(ex)
         }
     }
 
     fun deleteObject(bucketName: String, key: String): ResponseEntity<Unit> {
-        when(val result = s3Service.deleteObject(bucketName, key)) {
+        when (val result = s3Service.deleteObject(bucketName, key)) {
             is Result.Success -> {
                 return ResponseEntity.noContent()
                         .build<Unit>()
