@@ -9,6 +9,7 @@ import com.amazonaws.services.s3.model.DeleteObjectsResult
 import com.amazonaws.services.s3.model.ObjectListing
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectResult
+import com.amazonaws.services.s3.model.S3Object
 import hu.netcode.slog.result.Result
 import java.io.IOException
 import java.io.InputStream
@@ -75,13 +76,9 @@ class S3Service(
         }
     }
 
-    fun getObject(bucketName: String, key: String): Result<ByteArray> {
+    fun getObject(bucketName: String, key: String): Result<S3Object> {
         return try {
-            Result.Success(
-                s3Client.getObject(bucketName, key)
-                    .objectContent
-                    .readAllBytes()
-            )
+            Result.Success(s3Client.getObject(bucketName, key))
         } catch (ex: AmazonClientException) {
             logger.error("Failed to get object {} from bucket {} because of an exception: {}", key, bucketName, ex)
             Result.Failure(ex)

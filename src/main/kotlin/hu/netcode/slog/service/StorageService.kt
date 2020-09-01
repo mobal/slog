@@ -91,7 +91,7 @@ class StorageService(
         when (val result = s3Service.getObject(bucketName, key)) {
             is Result.Success -> {
                 return ResponseEntity(
-                    result.value,
+                    result.value.objectContent.readAllBytes(),
                     HttpHeaders().apply {
                         setCacheControl(CacheControl.noCache())
                     },
