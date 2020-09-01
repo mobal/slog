@@ -2,6 +2,7 @@ package hu.netcode.slog.controller
 
 import hu.netcode.slog.data.dto.input.ObjectDto
 import hu.netcode.slog.data.dto.output.BucketDto
+import hu.netcode.slog.data.dto.output.ObjectMetadataDto
 import hu.netcode.slog.data.dto.output.S3ObjectDto
 import hu.netcode.slog.service.StorageService
 import javax.validation.Valid
@@ -69,5 +70,11 @@ class StorageController(
     @GetMapping(value = ["/buckets/{bucketName}/{key}"])
     fun `object`(@PathVariable bucketName: String, @PathVariable key: String): ResponseEntity<ByteArray> {
         return storageService.getObject(bucketName, key)
+    }
+
+    @GetMapping(value = ["/buckets/{bucketName}/{key}/meta"])
+    @ResponseStatus(value = HttpStatus.OK)
+    fun meta(@PathVariable bucketName: String, @PathVariable key: String): ObjectMetadataDto {
+        return storageService.getObjectMetaData(bucketName, key)
     }
 }

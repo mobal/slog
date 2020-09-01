@@ -88,6 +88,16 @@ class S3Service(
         }
     }
 
+    fun getObjectMetaData(bucketName: String, key: String): Result<ObjectMetadata> {
+        return try {
+            Result.Success(s3Client.getObjectMetadata(bucketName, key))
+        } catch (ex: AmazonClientException) {
+            logger.error("Failed to get object metadata {} from bucket {} because of an exception: {}", key,
+                bucketName, ex)
+            Result.Failure(ex)
+        }
+    }
+
     fun getUrl(bucketName: String, key: String): Result<URI> {
         return try {
             Result.Success(s3Client.getUrl(bucketName, key).toURI())
