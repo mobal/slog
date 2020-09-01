@@ -10,6 +10,9 @@ import java.io.ByteArrayInputStream
 import java.lang.IllegalArgumentException
 import java.util.Base64
 import org.slf4j.LoggerFactory
+import org.springframework.http.CacheControl
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
@@ -84,10 +87,16 @@ class StorageService(
     }
 
     @Throws(exceptionClasses = [AmazonClientException::class])
-    fun getObject(bucketName: String, key: String): ByteArray {
+    fun getObject(bucketName: String, key: String): ResponseEntity<ByteArray> {
         when (val result = s3Service.getObject(bucketName, key)) {
             is Result.Success -> {
-                return byteArrayOf()
+                return ResponseEntity(
+                    result.value,
+                    HttpHeaders().apply {
+                        setCacheControl(CacheControl.noCache())
+                    },
+                    HttpStatus.OK
+                )
             }
             is Result.Failure -> {
                 throw result.error

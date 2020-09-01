@@ -67,8 +67,7 @@ class StorageController(
     }
 
     @GetMapping(value = ["/buckets/{bucketName}/{key}"])
-    @ResponseStatus(value = HttpStatus.OK)
-    fun `object`(@PathVariable bucketName: String, @PathVariable key: String): ByteArray {
+    fun `object`(@PathVariable bucketName: String, @PathVariable key: String): ResponseEntity<ByteArray> {
         return storageService.getObject(bucketName, key)
     }
 }
