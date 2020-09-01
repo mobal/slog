@@ -22,14 +22,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class ExceptionHandler(
     private val exceptionService: ExceptionService
 ) {
+    private companion object {
+        const val STATUS_CODE = "Status Code"
+    }
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @ExceptionHandler(value = [AmazonClientException::class])
     fun handleAmazonClientException(req: HttpServletRequest, ex: AmazonClientException):
             ResponseEntity<Map<String, Any>> {
         logger.error("{} {} {}", ex::class, req, ex)
-        val httpStatus = HttpStatus.valueOf("(Status Code: \\d{3})".toRegex().find(ex.message!!)?.value
-            ?.takeLast(3)!!.toInt())
+        val httpStatus = if (ex.message!!.contains(STATUS_CODE)) {
+            HttpStatus.valueOf("(Status Code: \\d{3})".toRegex().find(ex.message!!)?.value?.takeLast(3)!!.toInt())
+        } else {
+            HttpStatus.INTERNAL_SERVER_ERROR
+        }
         return ResponseEntity(exceptionService.createResponseMap(ex, httpStatus), httpStatus)
     }
 
