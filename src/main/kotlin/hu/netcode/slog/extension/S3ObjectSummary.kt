@@ -11,4 +11,3 @@ fun S3ObjectSummary.toS3ObjectDto(): S3ObjectDto =
         size,
         ZonedDateTime.ofInstant(this.lastModified.toInstant(), ZoneId.systemDefault())
     )
-
