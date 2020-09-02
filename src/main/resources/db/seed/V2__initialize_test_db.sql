@@ -1,7 +1,7 @@
 INSERT INTO `posts`(`id`, `author`, `body`, `title`, `visible`, `created_at`, `deleted_at`, `published_at`, `updated_at`) VALUES
-    (DEFAULT, 'mobal', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Lorem ipsum', DEFAULT, NOW(), null, null, NOW()),
-    (DEFAULT, 'mobal', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Dolor', DEFAULT, NOW(), null, null, NOW()),
-    (DEFAULT, 'mobal', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Amet', 0, NOW(), null, null, NOW());
+    (DEFAULT, 'mobal', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Lorem ipsum', DEFAULT, NOW(), null, '1970-01-01 00:00:00', NOW()),
+    (DEFAULT, 'mobal', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Dolor', 0, NOW(), null, '1970-01-01 00:00:00', NOW()),
+    (DEFAULT, 'mobal', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Amet', DEFAULT, NOW(), null, '2100-01-01 00:00:00', NOW());
 
 INSERT INTO `tags`(`id`, `name`, `description`, `created_at`, `deleted_at`) VALUES
     (DEFAULT, 'lorem', null, NOW(), null),

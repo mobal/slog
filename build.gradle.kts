@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("com.adarshr.test-logger") version "2.1.0"
     id("idea")
     id("jacoco")
     id("org.flywaydb.flyway") version "6.5.2"
@@ -34,8 +35,8 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.github.slugify:slugify:2.4")
     implementation("com.h2database:h2")
-    implementation("org.flywaydb:flyway-core")
     implementation("org.apache.commons:commons-lang3:3.11")
+    implementation("org.flywaydb:flyway-core")
     implementation("org.hibernate.validator:hibernate-validator:6.1.2.Final")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -53,6 +54,7 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    systemProperty("spring.profiles.active", "test")
 }
 
 tasks.withType<KotlinCompile> {
@@ -83,4 +85,9 @@ sonarqube {
         property("sonar.language", "kotlin")
         property("sonar.sources", "src/main/kotlin")
     }
+}
+
+testlogger {
+    setTheme("mocha-parallel")
+    showStackTraces = true
 }

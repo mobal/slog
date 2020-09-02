@@ -1,15 +1,19 @@
 amazon:
   aws:
-    accessKey: ${AWS_ACCESSKEY:minioadmin}
-    secretKey: ${AWS_SECRETKEY:minioadmin}
+    s3:
+      accessKey: ${S3_ACCESSKEY:minioadmin}
+      host: ${S3_HOST:http://localhost}
+      port: ${S3_PORT:9090}
+      region: ${S3_REGION:eu-central-1}
+      secretKey: ${S3_SECRETKEY:minioadmin}
 logging:
   level:
-    ROOT: INFO
+    ROOT: WARN
     org:
-      flywaydb: INFO
-      hibernate: INFO
+      flywaydb: WARN
+      hibernate: WARN
       springframework:
-        web: INFO
+        web: WARN
 server:
   port: ${SERVER_PORT:8080}
 slog:
@@ -18,7 +22,7 @@ slog:
 spring:
   datasource:
     driverClassName: org.h2.Driver
-    password: password
+    password: passwd
     url: jdbc:h2:mem:testdb
     username: sa
   flyway:
