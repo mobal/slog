@@ -11,11 +11,11 @@ import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectResult
 import com.amazonaws.services.s3.model.S3Object
 import hu.netcode.slog.result.Result
+import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Service
 import java.io.IOException
 import java.io.InputStream
 import java.net.URI
-import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Service
 
 @Service
 class S3Service(
@@ -32,8 +32,10 @@ class S3Service(
         return try {
             Result.Success(s3Client.copyObject(sourceBucketName, sourceKey, destinationBucketName, destinationKey))
         } catch (ex: AmazonClientException) {
-            logger.error("Failed to copy object {} as {} from bucket {} to {}", sourceKey, destinationKey,
-                sourceBucketName, destinationBucketName)
+            logger.error(
+                "Failed to copy object {} as {} from bucket {} to {}", sourceKey, destinationKey,
+                sourceBucketName, destinationBucketName
+            )
             Result.Failure(ex)
         }
     }
@@ -92,8 +94,10 @@ class S3Service(
         return try {
             Result.Success(s3Client.getObjectMetadata(bucketName, key))
         } catch (ex: AmazonClientException) {
-            logger.error("Failed to get object metadata {} from bucket {} because of an exception: {}", key,
-                bucketName, ex)
+            logger.error(
+                "Failed to get object metadata {} from bucket {} because of an exception: {}", key,
+                bucketName, ex
+            )
             Result.Failure(ex)
         }
     }

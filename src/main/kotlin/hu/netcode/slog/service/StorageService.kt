@@ -8,15 +8,15 @@ import hu.netcode.slog.extension.toBucketDto
 import hu.netcode.slog.extension.toObjectMetaDataDto
 import hu.netcode.slog.extension.toS3ObjectDto
 import hu.netcode.slog.result.Result
-import java.io.ByteArrayInputStream
-import java.lang.IllegalArgumentException
-import java.util.Base64
 import org.slf4j.LoggerFactory
 import org.springframework.http.CacheControl
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import java.io.ByteArrayInputStream
+import java.lang.IllegalArgumentException
+import java.util.Base64
 
 @Service
 class StorageService(
@@ -30,8 +30,10 @@ class StorageService(
             logger.info("Data successfully decoded from Base64 encoded string")
             result
         } catch (ex: IllegalArgumentException) {
-            logger.info("Failed to decode string because of an exception. It is possible that is not a binary file {}",
-                    ex)
+            logger.info(
+                "Failed to decode string because of an exception. It is possible that is not a binary file {}",
+                ex
+            )
             Result.Failure(ex)
         }
     }
@@ -73,11 +75,11 @@ class StorageService(
         when (val result = s3Service.getObject(bucketName, key)) {
             is Result.Success -> return ResponseEntity(
                 result.value.objectContent.readAllBytes(),
-                    HttpHeaders().apply {
-                        setCacheControl(CacheControl.noCache())
-                    },
-                    HttpStatus.OK
-                )
+                HttpHeaders().apply {
+                    setCacheControl(CacheControl.noCache())
+                },
+                HttpStatus.OK
+            )
             is Result.Failure -> throw result.error
         }
     }
