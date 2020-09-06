@@ -5,7 +5,6 @@ import hu.netcode.slog.data.dto.output.BucketDto
 import hu.netcode.slog.data.dto.output.ObjectMetadataDto
 import hu.netcode.slog.data.dto.output.S3ObjectDto
 import hu.netcode.slog.service.StorageService
-import javax.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 @RestController
 @RequestMapping(

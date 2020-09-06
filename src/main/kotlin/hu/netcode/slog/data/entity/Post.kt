@@ -1,6 +1,7 @@
 package hu.netcode.slog.data.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import org.hibernate.annotations.Type
 import java.time.ZonedDateTime
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -16,7 +17,6 @@ import javax.persistence.OneToMany
 import javax.persistence.OneToOne
 import javax.persistence.Table
 import javax.validation.constraints.NotEmpty
-import org.hibernate.annotations.Type
 
 @Entity
 @Table(name = "posts")
@@ -35,9 +35,9 @@ data class Post(
     @NotEmpty
     val title: String,
     @JoinTable(
-            inverseJoinColumns = [JoinColumn(name = "tag_id")],
-            joinColumns = [JoinColumn(name = "post_id")],
-            name = "posts_tags"
+        inverseJoinColumns = [JoinColumn(name = "tag_id")],
+        joinColumns = [JoinColumn(name = "post_id")],
+        name = "posts_tags"
     )
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER)

@@ -30,15 +30,21 @@ class SlogApplication(
     @Bean
     fun s3Client(): AmazonS3 {
         return AmazonS3ClientBuilder.standard()
-            .withClientConfiguration(ClientConfiguration().apply {
-                signerOverride = "AWSS3V4SignerType"
-            })
-            .withCredentials(AWSStaticCredentialsProvider(
-                BasicAWSCredentials(s3Properties.accessKey, s3Properties.secretKey))
+            .withClientConfiguration(
+                ClientConfiguration().apply {
+                    signerOverride = "AWSS3V4SignerType"
+                }
+            )
+            .withCredentials(
+                AWSStaticCredentialsProvider(
+                    BasicAWSCredentials(s3Properties.accessKey, s3Properties.secretKey)
+                )
             )
             .withEndpointConfiguration(
-                AwsClientBuilder.EndpointConfiguration("${s3Properties.host}:${s3Properties.port}",
-                    Regions.fromName(s3Properties.region).name)
+                AwsClientBuilder.EndpointConfiguration(
+                    "${s3Properties.host}:${s3Properties.port}",
+                    Regions.fromName(s3Properties.region).name
+                )
             )
             .withPathStyleAccessEnabled(true)
             .build()

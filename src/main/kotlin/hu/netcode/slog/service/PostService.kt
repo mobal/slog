@@ -6,13 +6,13 @@ import hu.netcode.slog.data.entity.Meta
 import hu.netcode.slog.data.entity.Post
 import hu.netcode.slog.data.repository.PostRepository
 import hu.netcode.slog.properties.PagingProperties
-import java.time.ZonedDateTime
-import javax.persistence.EntityNotFoundException
-import javax.transaction.Transactional
 import org.hibernate.Hibernate
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
+import java.time.ZonedDateTime
+import javax.persistence.EntityNotFoundException
+import javax.transaction.Transactional
 
 @Service
 class PostService(
