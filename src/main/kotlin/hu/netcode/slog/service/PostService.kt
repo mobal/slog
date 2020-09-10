@@ -71,4 +71,13 @@ class PostService(
             )
         )
     }
+
+    fun update(dto: PostDto, slug: String) {
+        val op = postRepository.findByMetaSlug(slug)
+        if (op.isPresent) {
+            //
+        } else {
+            throw EntityNotFoundException("The requested post was not found with slug $slug")
+        }
+    }
 }
