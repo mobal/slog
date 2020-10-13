@@ -4,14 +4,14 @@ plugins {
     id("com.adarshr.test-logger") version "2.1.0"
     id("idea")
     id("jacoco")
-    id("org.flywaydb.flyway") version "6.5.2"
-    id("org.jetbrains.kotlin.plugin.jpa") version "1.3.72"
-    id("org.jlleitschuh.gradle.ktlint") version "9.3.0"
-    id("org.sonarqube") version "2.7.1"
-    id("org.springframework.boot") version "2.3.2.RELEASE"
-    id("io.spring.dependency-management") version "1.0.9.RELEASE"
-    kotlin("jvm") version "1.3.72"
-    kotlin("plugin.spring") version "1.3.72"
+    id("org.flywaydb.flyway") version "7.0.2"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.10"
+    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
+    id("org.sonarqube") version "3.0"
+    id("org.springframework.boot") version "2.3.4.RELEASE"
+    id("io.spring.dependency-management") version "1.0.10.RELEASE"
+    kotlin("jvm") version "1.4.10"
+    kotlin("plugin.spring") version "1.4.10"
 }
 
 group = "hu.netcode"
