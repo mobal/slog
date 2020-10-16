@@ -1,16 +1,14 @@
 package hu.netcode.slog.controller
 
 import hu.netcode.slog.data.dto.input.PostDto
-import hu.netcode.slog.data.entity.Post
+import hu.netcode.slog.data.document.Post
 import hu.netcode.slog.service.PostService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -48,7 +46,7 @@ class PostController(
         return postService.findAllActive(page)
     }
 
-    @GetMapping(value = ["/{slug}"])
+    /* @GetMapping(value = ["/{slug}"])
     @ResponseStatus(value = HttpStatus.OK)
     fun findBySlug(@PathVariable slug: String): Post {
         return postService.findBySlug(slug)
@@ -58,5 +56,5 @@ class PostController(
     @ResponseStatus(value = HttpStatus.OK)
     fun update(@PathVariable slug: String, @RequestBody @Valid dto: PostDto) {
         return postService.update(dto, slug)
-    }
+    } */
 }

@@ -13,11 +13,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @ConfigurationPropertiesScan
-@EnableJpaRepositories
+@EnableMongoRepositories
 @SpringBootApplication
 class SlogApplication(
     private val s3Properties: S3Properties

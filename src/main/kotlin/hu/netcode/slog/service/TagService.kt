@@ -1,10 +1,10 @@
 package hu.netcode.slog.service
 
-import hu.netcode.slog.data.entity.Tag
+import hu.netcode.slog.data.document.Tag
 import hu.netcode.slog.data.repository.TagRepository
+import hu.netcode.slog.exception.DocumentNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import javax.persistence.EntityNotFoundException
 
 @Service
 class TagService(
@@ -21,7 +21,7 @@ class TagService(
         if (op.isPresent) {
             return op.get()
         } else {
-            throw EntityNotFoundException("The requested tag was not found with id $id")
+            throw DocumentNotFoundException("The requested tag was not found with id $id")
         }
     }
 }

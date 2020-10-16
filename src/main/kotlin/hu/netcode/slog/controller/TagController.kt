@@ -1,6 +1,6 @@
 package hu.netcode.slog.controller
 
-import hu.netcode.slog.data.entity.Tag
+import hu.netcode.slog.data.document.Tag
 import hu.netcode.slog.service.TagService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus

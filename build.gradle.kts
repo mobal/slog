@@ -34,15 +34,13 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.11.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.github.slugify:slugify:2.4")
-    implementation("com.h2database:h2")
     implementation("org.apache.commons:commons-lang3:3.11")
-    implementation("org.flywaydb:flyway-core")
     implementation("org.hibernate.validator:hibernate-validator:6.1.2.Final")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springdoc:springdoc-openapi-ui:1.4.3")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.data:spring-data-rest-core")
     implementation("org.springframework.security:spring-security-web")
@@ -62,13 +60,6 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "11"
     }
-}
-
-// TODO: Configure flyway properly!
-flyway {
-    password = "password"
-    user = "sa"
-    url = "jdbc:h2:mem:mydb"
 }
 
 jacoco {

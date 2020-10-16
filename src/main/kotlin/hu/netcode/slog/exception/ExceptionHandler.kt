@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import java.lang.NullPointerException
-import javax.persistence.EntityNotFoundException
 import javax.servlet.http.HttpServletRequest
 import javax.validation.ConstraintViolationException
 
@@ -47,9 +46,9 @@ class ExceptionHandler(
             return exceptionService.createResponseMap(ex, HttpStatus.BAD_REQUEST)
         }
 
-    @ExceptionHandler(value = [EntityNotFoundException::class])
+    @ExceptionHandler(value = [DocumentNotFoundException::class])
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    fun handleEntityNotFoundException(req: HttpServletRequest, ex: EntityNotFoundException): Map<String, Any> {
+    fun handleEntityNotFoundException(req: HttpServletRequest, ex: DocumentNotFoundException): Map<String, Any> {
         logger.error("EntityNotFoundException {} {}", req, ex)
         return exceptionService.createResponseMap(ex, HttpStatus.NOT_FOUND)
     }
