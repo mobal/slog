@@ -14,6 +14,8 @@ logging:
       mongodb: INFO
       springframework:
         web: INFO
+mongock:
+  change-logs-scan-package: hu.netcode.slog.changelog
 server:
   port: ${SERVER_PORT:8080}
 slog:
@@ -22,9 +24,7 @@ slog:
 spring:
   data:
     mongodb:
-      user: nc
-      password: V8L6dkDVMCHKbhY
-      uri: mongodb+srv://cluster0.vaxu4.mongodb.net/slog_dev?retryWrites=true&w=majority
+      uri: mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@cluster0.vaxu4.mongodb.net/slog_dev?retryWrites=true&w=majority
   output:
     ansi:
       enabled: ALWAYS

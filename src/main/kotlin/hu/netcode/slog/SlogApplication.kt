@@ -7,6 +7,7 @@ import com.amazonaws.client.builder.AwsClientBuilder
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
+import com.github.cloudyrock.spring.v5.EnableMongock
 import com.github.slugify.Slugify
 import hu.netcode.slog.properties.S3Properties
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -17,6 +18,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @ConfigurationPropertiesScan
+@EnableMongock
 @EnableMongoRepositories
 @SpringBootApplication
 class SlogApplication(
