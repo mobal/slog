@@ -16,6 +16,8 @@ interface PostRepository : PagingAndSortingRepository<Post, Int> {
 
     fun findByDeletedAtIsNullAndVisibleTrue(pageable: Pageable): List<Post>
 
+    fun findByMetaSlug(slug: String): Optional<Post>
+
     fun findByVisibleTrueAndDeletedAtIsNullAndPublishedAtIsNotNullAndPublishedAtBeforeAndMetaSlug(
         threshold: ZonedDateTime,
         slug: String
