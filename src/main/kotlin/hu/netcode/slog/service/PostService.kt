@@ -2,10 +2,9 @@ package hu.netcode.slog.service
 
 import com.github.slugify.Slugify
 import hu.netcode.slog.data.document.Meta
-import hu.netcode.slog.data.dto.input.PostDto
 import hu.netcode.slog.data.document.Post
+import hu.netcode.slog.data.dto.input.PostDto
 import hu.netcode.slog.data.repository.PostRepository
-import hu.netcode.slog.exception.DocumentNotFoundException
 import hu.netcode.slog.properties.PagingProperties
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest

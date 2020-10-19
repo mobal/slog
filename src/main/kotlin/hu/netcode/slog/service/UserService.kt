@@ -1,7 +1,7 @@
 package hu.netcode.slog.service
 
-import hu.netcode.slog.data.dto.input.UserDto
 import hu.netcode.slog.data.document.User
+import hu.netcode.slog.data.dto.input.UserDto
 import hu.netcode.slog.data.repository.UserRepository
 import hu.netcode.slog.exception.DocumentNotFoundException
 import org.slf4j.LoggerFactory

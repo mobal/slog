@@ -1,7 +1,7 @@
 package hu.netcode.slog.controller
 
-import hu.netcode.slog.data.dto.input.UserDto
 import hu.netcode.slog.data.document.User
+import hu.netcode.slog.data.dto.input.UserDto
 import hu.netcode.slog.properties.PagingProperties
 import hu.netcode.slog.service.UserService
 import org.slf4j.LoggerFactory
