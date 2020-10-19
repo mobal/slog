@@ -9,5 +9,5 @@ data class PostDto(
     @NotEmpty
     val title: String,
     @JsonProperty(value = "tags")
-    val tagList: List<TagDto>
+    val tagList: List<String>
 )

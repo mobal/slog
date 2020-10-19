@@ -1,6 +1,7 @@
 package hu.netcode.slog.service
 
 import com.github.slugify.Slugify
+import hu.netcode.slog.data.document.Meta
 import hu.netcode.slog.data.dto.input.PostDto
 import hu.netcode.slog.data.document.Post
 import hu.netcode.slog.data.repository.PostRepository
@@ -53,8 +54,11 @@ class PostService(
             Post(
                 author = "user",
                 body = dto.body,
-                title = dto.title,
-                // tagList = emptyList()
+                meta = Meta(
+                    slug = slugify.slugify(dto.title)
+                ),
+                tagList = dto.tagList,
+                title = dto.title
             )
         )
     }
