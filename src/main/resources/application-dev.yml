@@ -24,7 +24,7 @@ slog:
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@cluster0.vaxu4.mongodb.net/slog_dev?retryWrites=true&w=majority
+      uri: mongodb+srv://${MONGODB_USER:root}:${MONGODB_PASSWORD:password}@${MONGODB_HOST:localhost}/${MONGODB_DB:slog_dev}?retryWrites=true&w=majority
   output:
     ansi:
       enabled: ALWAYS
