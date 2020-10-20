@@ -5,9 +5,11 @@ import javax.validation.constraints.NotEmpty
 
 data class PostDto(
     @NotEmpty
+    val author: String,
+    @NotEmpty
     val body: String,
     @NotEmpty
     val title: String,
     @JsonProperty(value = "tags")
-    val tagList: List<TagDto>
+    val tagList: List<String>
 )

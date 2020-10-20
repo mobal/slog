@@ -1,6 +1,6 @@
 package hu.netcode.slog.data.repository.event
 
-import hu.netcode.slog.data.entity.User
+import hu.netcode.slog.data.document.User
 import org.slf4j.LoggerFactory
 import org.springframework.data.rest.core.annotation.HandleAfterCreate
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler
