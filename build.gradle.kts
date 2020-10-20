@@ -35,6 +35,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.github.cloudyrock.mongock:mongock-spring-v5:4.1.17")
     implementation("com.github.cloudyrock.mongock:mongodb-springdata-v3-driver:4.1.17")
+    implementation("com.github.javafaker:javafaker:1.0.2")
     implementation("com.github.slugify:slugify:2.4")
     implementation("org.apache.commons:commons-lang3:3.11")
     implementation("org.hibernate.validator:hibernate-validator:6.1.2.Final")
