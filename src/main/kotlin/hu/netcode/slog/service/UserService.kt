@@ -52,12 +52,14 @@ class UserService(
     fun update(dto: UserDto, username: String) {
         val op = userRepository.findByDeletedAtIsNullAndActivationIsNullAndUsername(username)
         if (op.isPresent) {
-            userRepository.save(op.get().apply {
-                email = dto.email
-                name = dto.name
-                username = dto.username
-                password = dto.password
-            })
+            userRepository.save(
+                op.get().apply {
+                    email = dto.email
+                    name = dto.name
+                    this.username = dto.username
+                    password = dto.password
+                }
+            )
         } else {
             throw DocumentNotFoundException(ERROR_MESSAGE_USER_NOT_FOUND + ": $username")
         }
