@@ -4,19 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 import java.util.UUID
 
 @Document(collection = "users")
 data class User(
     @Id
     @JsonIgnore
-    val id: Int? = null,
+    val id: String? = null,
     @JsonIgnore
     val userId: String = UUID.randomUUID().toString(),
     @get:JsonProperty(value = "name")
     val displayName: String? = null,
-    @JsonIgnore
     val email: String,
     @JsonIgnore
     val name: String,
@@ -24,9 +23,9 @@ data class User(
     val password: String,
     @JsonIgnore
     val username: String,
-    val createdAt: ZonedDateTime = ZonedDateTime.now(),
+    val createdAt: LocalDateTime = LocalDateTime.now(),
     @JsonIgnore
-    val deletedAt: ZonedDateTime? = null,
+    val deletedAt: LocalDateTime? = null,
     @JsonIgnore
     val activation: String? = null
 ) {

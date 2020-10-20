@@ -5,11 +5,12 @@ import hu.netcode.slog.data.document.Meta
 import hu.netcode.slog.data.document.Post
 import hu.netcode.slog.data.dto.input.PostDto
 import hu.netcode.slog.data.repository.PostRepository
+import hu.netcode.slog.exception.DocumentNotFoundException
 import hu.netcode.slog.properties.PagingProperties
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 
 @Service
 class PostService(
@@ -19,34 +20,29 @@ class PostService(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
+    fun delete(slug: String) {
+        return postRepository.deleteByMetaSlug(slug)
+    }
+
     fun findAll(page: Int): List<Post> {
-        return postRepository.findByDeletedAtIsNullAndVisibleTrue(
-            PageRequest.of(page - 1, pagingProperties.size)
-        )
-    }
-
-    fun findAllActive(page: Int): List<Post> {
-        val postList = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtIsNotNullAndPublishedAtBefore(
+        return postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtBefore(
             PageRequest.of(page - 1, pagingProperties.size),
-            ZonedDateTime.now()
+            LocalDateTime.now()
         )
-        // postList.forEach { Hibernate.initialize(it.tagList) }
-        return postList
     }
 
-    /* @Throws(exceptionClasses = [DocumentNotFoundException::class])
+    @Throws(exceptionClasses = [DocumentNotFoundException::class])
     fun findBySlug(slug: String): Post {
-        val op = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtIsNotNullAndPublishedAtBeforeAndMetaSlug(
-            ZonedDateTime.now(),
+        val op = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtBeforeAndMetaSlug(
+            LocalDateTime.now(),
             slug
         )
         if (op.isPresent) {
-            val post = op.get()
-            return post
+            return op.get()
         } else {
             throw DocumentNotFoundException("The requested post was not found with slug $slug")
         }
-    } */
+    }
 
     fun save(dto: PostDto) {
         postRepository.save(
@@ -62,12 +58,15 @@ class PostService(
         )
     }
 
-    /* fun update(dto: PostDto, slug: String) {
-        val op = postRepository.findByMetaSlug(slug)
+    fun update(dto: PostDto, slug: String) {
+        val op = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtBeforeAndMetaSlug(
+            LocalDateTime.now(),
+            slug
+        )
         if (op.isPresent) {
             //
         } else {
             throw DocumentNotFoundException("The requested post was not found with slug $slug")
         }
-    } */
+    }
 }

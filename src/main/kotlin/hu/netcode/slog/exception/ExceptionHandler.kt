@@ -49,7 +49,7 @@ class ExceptionHandler(
     @ExceptionHandler(value = [DocumentNotFoundException::class])
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     fun handleEntityNotFoundException(req: HttpServletRequest, ex: DocumentNotFoundException): Map<String, Any> {
-        logger.error("EntityNotFoundException {} {}", req, ex)
+        logger.error("DocumentNotFoundException {} {}", req, ex)
         return exceptionService.createResponseMap(ex, HttpStatus.NOT_FOUND)
     }
 
