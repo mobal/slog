@@ -14,7 +14,15 @@ class UserService(
     private val bCryptPasswordEncoder: BCryptPasswordEncoder,
     private val userRepository: UserRepository
 ) {
+    private companion object {
+        const val ERROR_MESSAGE_USER_NOT_FOUND = "The requested user was not found"
+    }
+
     private val logger = LoggerFactory.getLogger(javaClass)
+
+    fun delete(username: String) {
+        userRepository.deleteByUsername(username)
+    }
 
     fun create(userDto: UserDto): User {
         val user = User(
@@ -37,7 +45,21 @@ class UserService(
         if (op.isPresent) {
             return op.get()
         } else {
-            throw DocumentNotFoundException("The requested user was not found with the following username $username")
+            throw DocumentNotFoundException(ERROR_MESSAGE_USER_NOT_FOUND + ": $username")
+        }
+    }
+
+    fun update(dto: UserDto, username: String) {
+        val op = userRepository.findByDeletedAtIsNullAndActivationIsNullAndUsername(username)
+        if (op.isPresent) {
+            userRepository.save(op.get().apply {
+                email = dto.email
+                name = dto.name
+                username = dto.username
+                password = dto.password
+            })
+        } else {
+            throw DocumentNotFoundException(ERROR_MESSAGE_USER_NOT_FOUND + ": $username")
         }
     }
 }

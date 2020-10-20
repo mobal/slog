@@ -16,13 +16,13 @@ data class User(
     val userId: String = UUID.randomUUID().toString(),
     @get:JsonProperty(value = "name")
     val displayName: String? = null,
-    val email: String,
+    var email: String,
     @JsonIgnore
-    val name: String,
+    var name: String,
     @JsonIgnore
-    val password: String,
+    var password: String,
     @JsonIgnore
-    val username: String,
+    var username: String,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     @JsonIgnore
     val deletedAt: LocalDateTime? = null,
