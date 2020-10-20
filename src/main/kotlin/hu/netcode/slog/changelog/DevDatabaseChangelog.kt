@@ -11,7 +11,7 @@ import hu.netcode.slog.data.document.User
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Profile
 import java.time.LocalDateTime
-import java.util.*
+import java.util.Locale
 
 @ChangeLog(order = "001")
 @Profile(value = ["dev"])
