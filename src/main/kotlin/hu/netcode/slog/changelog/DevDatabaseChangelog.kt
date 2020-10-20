@@ -18,13 +18,8 @@ import java.util.Locale
 class DevDatabaseChangelog {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    private lateinit var faker: Faker
-    private lateinit var slugify: Slugify
-
-    init {
-        faker = Faker(Locale("hu-HU"))
-        slugify = Slugify()
-    }
+    private var faker: Faker = Faker(Locale("hu-HU"))
+    private var slugify: Slugify = Slugify()
 
     @ChangeSet(
         author = "mobal",
