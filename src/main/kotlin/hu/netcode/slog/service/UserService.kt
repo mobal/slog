@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.UUID
+import kotlin.jvm.Throws
 
 @Service
 class UserService(
@@ -40,15 +41,17 @@ class UserService(
         return userRepository.findByDeletedAtIsNullAndActivationIsNull()
     }
 
+    @Throws(exceptionClasses = [DocumentNotFoundException::class])
     fun findByUsername(username: String): User {
         val op = userRepository.findByDeletedAtIsNullAndActivationIsNullAndUsername(username)
         if (op.isPresent) {
             return op.get()
         } else {
-            throw DocumentNotFoundException(ERROR_MESSAGE_USER_NOT_FOUND + ": $username")
+            throw DocumentNotFoundException("$ERROR_MESSAGE_USER_NOT_FOUND: $username")
         }
     }
 
+    @Throws(exceptionClasses = [DocumentNotFoundException::class])
     fun update(dto: UserDto, username: String) {
         val op = userRepository.findByDeletedAtIsNullAndActivationIsNullAndUsername(username)
         if (op.isPresent) {
@@ -61,7 +64,7 @@ class UserService(
                 }
             )
         } else {
-            throw DocumentNotFoundException(ERROR_MESSAGE_USER_NOT_FOUND + ": $username")
+            throw DocumentNotFoundException("$ERROR_MESSAGE_USER_NOT_FOUND: $username")
         }
     }
 }
