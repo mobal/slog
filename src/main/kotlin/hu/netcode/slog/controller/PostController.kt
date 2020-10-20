@@ -39,7 +39,7 @@ class PostController(
     @DeleteMapping(value = ["/{slug}"])
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     fun delete(@PathVariable slug: String) {
-        //
+        postService.delete(slug)
     }
 
     @GetMapping
@@ -64,6 +64,6 @@ class PostController(
     @PutMapping(value = ["/{slug}"])
     @ResponseStatus(value = HttpStatus.OK)
     fun update(@PathVariable slug: String, @RequestBody @Valid dto: PostDto) {
-        //
+        postService.update(dto, slug)
     }
 }

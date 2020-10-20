@@ -64,7 +64,12 @@ class PostService(
             slug
         )
         if (op.isPresent) {
-            //
+            postRepository.save(op.get().apply {
+                author = dto.author
+                body = dto.body
+                tagList = dto.tagList
+                title = dto.title
+            })
         } else {
             throw DocumentNotFoundException("The requested post was not found with slug $slug")
         }

@@ -13,16 +13,16 @@ data class Post(
     @JsonIgnore
     val id: String? = null,
     @NotEmpty
-    val author: String,
-    val body: String,
+    var author: String,
+    var body: String,
     @NotEmpty
     @Valid
     val meta: Meta,
     @NotEmpty
-    val title: String,
+    var title: String,
     @JsonIgnore
     @NotEmpty
-    val tagList: List<String>,
+    var tagList: List<String>,
     @JsonIgnore
     val visible: Boolean = true,
     @JsonIgnore
