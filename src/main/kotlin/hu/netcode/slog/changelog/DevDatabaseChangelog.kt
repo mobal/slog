@@ -16,6 +16,10 @@ import java.util.Locale
 @ChangeLog(order = "001")
 @Profile(value = ["dev"])
 class DevDatabaseChangelog {
+    private companion object {
+        const val MAX = 30
+    }
+
     private val logger = LoggerFactory.getLogger(javaClass)
 
     private var faker: Faker = Faker(Locale("hu-HU"))
@@ -42,7 +46,7 @@ class DevDatabaseChangelog {
     fun createPostsCollection(mongockTemplate: MongockTemplate) {
         logger.info("Create posts collection")
         val postList = mutableListOf<Post>()
-        for (i in 1..100) {
+        for (i in 1..MAX) {
             postList.add(
                 Post(
                     author = faker.book().author(),
@@ -66,7 +70,7 @@ class DevDatabaseChangelog {
     fun createUsersCollection(mongockTemplate: MongockTemplate) {
         logger.info("Create users collection")
         val userList = mutableListOf<User>()
-        for (i in 1..5) {
+        for (i in 1..MAX) {
             userList.add(
                 User(
                     displayName = faker.name().name(),
