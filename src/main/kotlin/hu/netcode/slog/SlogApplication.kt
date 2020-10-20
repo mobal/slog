@@ -7,17 +7,19 @@ import com.amazonaws.client.builder.AwsClientBuilder
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
+import com.github.cloudyrock.spring.v5.EnableMongock
 import com.github.slugify.Slugify
 import hu.netcode.slog.properties.S3Properties
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @ConfigurationPropertiesScan
-@EnableJpaRepositories
+@EnableMongock
+@EnableMongoRepositories
 @SpringBootApplication
 class SlogApplication(
     private val s3Properties: S3Properties

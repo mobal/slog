@@ -1,18 +1,16 @@
 package hu.netcode.slog.service
 
 import com.github.slugify.Slugify
+import hu.netcode.slog.data.document.Meta
+import hu.netcode.slog.data.document.Post
 import hu.netcode.slog.data.dto.input.PostDto
-import hu.netcode.slog.data.entity.Meta
-import hu.netcode.slog.data.entity.Post
 import hu.netcode.slog.data.repository.PostRepository
+import hu.netcode.slog.exception.DocumentNotFoundException
 import hu.netcode.slog.properties.PagingProperties
-import org.hibernate.Hibernate
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
-import java.time.ZonedDateTime
-import javax.persistence.EntityNotFoundException
-import javax.transaction.Transactional
+import java.time.LocalDateTime
 
 @Service
 class PostService(
@@ -22,41 +20,27 @@ class PostService(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    private fun incrementViews(post: Post, value: Int = 1) {
-        post.meta.views += value
-        postRepository.save(post)
+    fun delete(slug: String) {
+        return postRepository.deleteByMetaSlug(slug)
     }
 
-    @Transactional
     fun findAll(page: Int): List<Post> {
-        return postRepository.findByDeletedAtIsNullAndVisibleTrue(
-            PageRequest.of(page - 1, pagingProperties.size)
-        )
-    }
-
-    @Transactional
-    fun findAllActive(page: Int): List<Post> {
-        val postList = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtIsNotNullAndPublishedAtBefore(
+        return postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtBefore(
             PageRequest.of(page - 1, pagingProperties.size),
-            ZonedDateTime.now()
+            LocalDateTime.now()
         )
-        postList.forEach { Hibernate.initialize(it.tagList) }
-        return postList
     }
 
-    @Throws(exceptionClasses = [EntityNotFoundException::class])
-    @Transactional
+    @Throws(exceptionClasses = [DocumentNotFoundException::class])
     fun findBySlug(slug: String): Post {
-        val op = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtIsNotNullAndPublishedAtBeforeAndMetaSlug(
-            ZonedDateTime.now(),
+        val op = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtBeforeAndMetaSlug(
+            LocalDateTime.now(),
             slug
         )
         if (op.isPresent) {
-            val post = op.get()
-            incrementViews(post)
-            return post
+            return op.get()
         } else {
-            throw EntityNotFoundException("The requested post was not found with slug $slug")
+            throw DocumentNotFoundException("The requested post was not found with slug $slug")
         }
     }
 
@@ -65,19 +49,31 @@ class PostService(
             Post(
                 author = "user",
                 body = dto.body,
-                title = dto.title,
-                meta = Meta(slug = slugify.slugify(dto.title)),
-                tagList = emptyList()
+                meta = Meta(
+                    slug = slugify.slugify(dto.title)
+                ),
+                tagList = dto.tagList,
+                title = dto.title
             )
         )
     }
 
     fun update(dto: PostDto, slug: String) {
-        val op = postRepository.findByMetaSlug(slug)
+        val op = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtBeforeAndMetaSlug(
+            LocalDateTime.now(),
+            slug
+        )
         if (op.isPresent) {
-            //
+            postRepository.save(
+                op.get().apply {
+                    author = dto.author
+                    body = dto.body
+                    tagList = dto.tagList
+                    title = dto.title
+                }
+            )
         } else {
-            throw EntityNotFoundException("The requested post was not found with slug $slug")
+            throw DocumentNotFoundException("The requested post was not found with slug $slug")
         }
     }
 }

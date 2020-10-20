@@ -10,31 +10,21 @@ logging:
   level:
     ROOT: INFO
     org:
-      flywaydb: INFO
       hibernate: INFO
+      mongodb: INFO
       springframework:
         web: INFO
+mongock:
+  change-logs-scan-package: hu.netcode.slog.changelog
 server:
   port: ${SERVER_PORT:8080}
 slog:
   paging:
     size: 10
 spring:
-  datasource:
-    driverClassName: org.h2.Driver
-    password: passwd
-    url: jdbc:h2:mem:testdb
-    username: sa
-  flyway:
-    locations: classpath:/db/migration,classpath:/db/seed
-  h2:
-    console:
-      enabled: true
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: validate
-    open-in-view: false
+  data:
+    mongodb:
+      uri: mongodb+srv://${MONGODB_USER:root}:${MONGODB_PASSWORD:password}@${MONGODB_HOST:localhost}/${MONGODB_DB:slog_dev}?retryWrites=true&w=majority
   output:
     ansi:
       enabled: ALWAYS
