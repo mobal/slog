@@ -44,7 +44,7 @@ class PostController(
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    fun findAllActive(
+    fun findAll(
         @RequestParam(
             defaultValue = "1",
             name = "page",
