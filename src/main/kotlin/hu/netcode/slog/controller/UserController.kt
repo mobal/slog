@@ -54,10 +54,11 @@ class UserController(
 
     @PostMapping(value = ["/registration"])
     @ResponseStatus(value = HttpStatus.CREATED)
-    fun registration(@RequestBody userDto: UserDto, request: HttpServletRequest): ResponseEntity<Unit> {
+    fun registration(@RequestBody userDto: UserDto, req: HttpServletRequest): ResponseEntity<Unit> {
         logger.info("User registration started {}", userDto)
         val user = userService.create(userDto)
-        return ResponseEntity.created(URI("https://${request.remoteHost}/api/users/${user.username}")).build()
+        return ResponseEntity.created(URI("${req.requestURL}/${user.username}"))
+            .build()
     }
 
     @PutMapping(value = ["/{username}"])
