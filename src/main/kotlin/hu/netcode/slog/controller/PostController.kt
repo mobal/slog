@@ -3,7 +3,6 @@ package hu.netcode.slog.controller
 import hu.netcode.slog.data.document.Post
 import hu.netcode.slog.data.dto.input.PostDto
 import hu.netcode.slog.service.PostService
-import org.apache.http.impl.bootstrap.HttpServer
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
