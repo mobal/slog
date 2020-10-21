@@ -49,8 +49,8 @@ class PostService(
         }
     }
 
-    fun save(dto: PostDto) {
-        postRepository.save(
+    fun save(dto: PostDto): Post {
+        return postRepository.save(
             Post(
                 author = "user",
                 body = dto.body,
@@ -76,6 +76,7 @@ class PostService(
                     body = dto.body
                     tagList = dto.tagList
                     title = dto.title
+                    updatedAt = LocalDateTime.now()
                 }
             )
         } else {

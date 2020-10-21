@@ -30,7 +30,7 @@ data class Post(
     @JsonIgnore
     val deletedAt: LocalDateTime? = null,
     val publishedAt: LocalDateTime? = null,
-    val updatedAt: LocalDateTime = LocalDateTime.now()
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 ) {
     @JsonIgnore
     fun isDeleted(): Boolean {
