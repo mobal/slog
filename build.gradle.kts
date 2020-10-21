@@ -48,6 +48,8 @@ dependencies {
     implementation("org.springframework.data:spring-data-rest-core")
     implementation("org.springframework.security:spring-security-web")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+    testImplementation("com.ninja-squad:springmockk:2.0.3")
+    testImplementation("io.mockk:mockk-common:1.10.2")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
