@@ -1,4 +1,4 @@
-package service
+package hu.netcode.slog.service
 
 import com.github.slugify.Slugify
 import com.ninjasquad.springmockk.MockkBean
