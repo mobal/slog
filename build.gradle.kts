@@ -2,9 +2,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.adarshr.test-logger") version "2.1.0"
+    id("com.avast.gradle.docker-compose") version "0.13.4"
     id("idea")
     id("jacoco")
-    id("org.flywaydb.flyway") version "7.0.2"
     id("org.jetbrains.kotlin.plugin.jpa") version "1.4.10"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
     id("org.sonarqube") version "3.0"
@@ -48,6 +48,8 @@ dependencies {
     implementation("org.springframework.data:spring-data-rest-core")
     implementation("org.springframework.security:spring-security-web")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+    testImplementation("com.ninja-squad:springmockk:2.0.3")
+    testImplementation("io.mockk:mockk-common:1.10.2")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }

@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - 58080:8080
+      - 59090:9090
+    depends_on:
+      - minio
+      - mongo
+    environment:
+      - SPRING_PROFILE=dev
+      - MONGODB_DB=dev
+      - MONGODB_HOST=mongo
+      - MONGODB_PASSWORD=example
+      - MONGODB_USER=root
+    links:
+      - minio
+      - mongo
+  minio:
+    image: minio/minio:latest
+    ports:
+      - 59000:9000
+    environment:
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    command: server /data
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:latest
+    ports:
+      - 57017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=dev
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    volumes:
+      - ./tools/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  mongo-express:
+    image: mongo-express:latest
+    ports:
+      - 58081:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=example
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=dev
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+    depends_on:
+      - mongo
+    links:
+      - mongo

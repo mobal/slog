@@ -6,6 +6,7 @@ import hu.netcode.slog.service.PostService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import java.net.URI
+import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
 
 @RestController
@@ -32,8 +35,10 @@ class PostController(
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    fun create(@RequestBody @Valid dto: PostDto) {
-        postService.save(dto)
+    fun create(@RequestBody @Valid dto: PostDto, req: HttpServletRequest): ResponseEntity<Unit> {
+        val post = postService.save(dto)
+        return ResponseEntity.created(URI("${req.requestURL}/${post.meta.slug}"))
+            .build()
     }
 
     @DeleteMapping(value = ["/{slug}"])
@@ -44,7 +49,7 @@ class PostController(
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    fun findAllActive(
+    fun findAll(
         @RequestParam(
             defaultValue = "1",
             name = "page",

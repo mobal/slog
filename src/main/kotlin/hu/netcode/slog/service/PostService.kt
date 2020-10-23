@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
+import kotlin.jvm.Throws
 
 @Service
 class PostService(
@@ -18,6 +19,10 @@ class PostService(
     private val postRepository: PostRepository,
     private val slugify: Slugify
 ) {
+    private companion object {
+        const val ERROR_MESSAGE_POST_NOT_FOUND = "The requested post was not found"
+    }
+
     private val logger = LoggerFactory.getLogger(javaClass)
 
     fun delete(slug: String) {
@@ -40,12 +45,12 @@ class PostService(
         if (op.isPresent) {
             return op.get()
         } else {
-            throw DocumentNotFoundException("The requested post was not found with slug $slug")
+            throw DocumentNotFoundException("$ERROR_MESSAGE_POST_NOT_FOUND:$slug")
         }
     }
 
-    fun save(dto: PostDto) {
-        postRepository.save(
+    fun save(dto: PostDto): Post {
+        return postRepository.save(
             Post(
                 author = "user",
                 body = dto.body,
@@ -58,6 +63,7 @@ class PostService(
         )
     }
 
+    @Throws(exceptionClasses = [DocumentNotFoundException::class])
     fun update(dto: PostDto, slug: String) {
         val op = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtBeforeAndMetaSlug(
             LocalDateTime.now(),
@@ -70,10 +76,11 @@ class PostService(
                     body = dto.body
                     tagList = dto.tagList
                     title = dto.title
+                    updatedAt = LocalDateTime.now()
                 }
             )
         } else {
-            throw DocumentNotFoundException("The requested post was not found with slug $slug")
+            throw DocumentNotFoundException("$ERROR_MESSAGE_POST_NOT_FOUND:$slug")
         }
     }
 }
