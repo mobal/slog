@@ -4,7 +4,6 @@ import com.github.slugify.Slugify
 import com.ninjasquad.springmockk.MockkBean
 import hu.netcode.slog.data.repository.PostRepository
 import hu.netcode.slog.properties.PagingProperties
-import hu.netcode.slog.service.PostService
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
