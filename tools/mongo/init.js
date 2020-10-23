@@ -3,6 +3,6 @@ db.createUser({
     pwd: 'example',
     roles: [
         role: 'readWrite',
-        db: 'example'
+        db: 'dev'
     ]
 })
