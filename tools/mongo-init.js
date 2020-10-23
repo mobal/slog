@@ -1,4 +1,3 @@
-use dev
 db.createUser({
     user: 'root',
     pwd: 'example',
