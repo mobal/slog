@@ -50,7 +50,7 @@ class StorageServiceTest {
         clearAllMocks()
     }
 
-    @DisplayName(value = "Tests for function delete object")
+    @DisplayName(value = "StorageService: Tests for function delete object")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class DeleteObject {
@@ -86,7 +86,7 @@ class StorageServiceTest {
         }
     }
 
-    @DisplayName(value = "Tests for function put object")
+    @DisplayName(value = "StorageService: Tests for function put object")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class PutObject {
@@ -124,7 +124,7 @@ class StorageServiceTest {
         }
     }
 
-    @DisplayName(value = "Tests for function get object")
+    @DisplayName(value = "StorageService: Tests for function get object")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class GetObject {
@@ -140,14 +140,14 @@ class StorageServiceTest {
             assertThrows<AmazonClientException> { storageService.getObject(BUCKET, KEY) }
         }
     }
-    @DisplayName(value = "Tests for function get object metadata")
+    @DisplayName(value = "StorageService: Tests for function get object metadata")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class GetObjectMetaData {
         //
     }
 
-    @DisplayName(value = "Tests for function list buckets")
+    @DisplayName(value = "StorageService: Tests for function list buckets")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class ListBuckets {
@@ -169,7 +169,7 @@ class StorageServiceTest {
         }
     }
 
-    @DisplayName(value = "Tests for function list objects")
+    @DisplayName(value = "StorageService: Tests for function list objects")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class ListObjects {

@@ -61,7 +61,7 @@ class UserServiceTest {
         clearAllMocks()
     }
 
-    @DisplayName(value = "Tests for function create")
+    @DisplayName(value = "UserService: Tests for function create")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class Create {
@@ -85,7 +85,7 @@ class UserServiceTest {
         }
     }
 
-    @DisplayName(value = "Tests for function delete")
+    @DisplayName(value = "UserService: Tests for function delete")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class Delete {
@@ -99,7 +99,7 @@ class UserServiceTest {
         }
     }
 
-    @DisplayName(value = "Tests for function findAll")
+    @DisplayName(value = "UserService: Tests for function findAll")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class FindAll {
@@ -119,7 +119,7 @@ class UserServiceTest {
         }
     }
 
-    @DisplayName(value = "Tests for function findByUsername")
+    @DisplayName(value = "UserService: Tests for function findByUsername")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class FindByUsername {
@@ -136,7 +136,7 @@ class UserServiceTest {
             assertThrows<DocumentNotFoundException> { userService.findByUsername("user") }
         }
     }
-    @DisplayName(value = "Tests for function update")
+    @DisplayName(value = "UserService: Tests for function update")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class Update {
