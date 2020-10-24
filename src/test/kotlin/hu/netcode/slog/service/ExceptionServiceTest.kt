@@ -25,7 +25,7 @@ class ExceptionServiceTest {
     @Autowired
     private lateinit var exceptionService: ExceptionService
 
-    @DisplayName(value = "Tests for create response map function")
+    @DisplayName(value = "ExceptionService: Tests for create response map function")
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class CreateResponseMap {
