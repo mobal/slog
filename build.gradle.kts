@@ -60,6 +60,12 @@ tasks.withType<Test> {
     systemProperty("spring.profiles.active", "test")
 }
 
+tasks.withType<JacocoReport> {
+    reports {
+        xml.isEnabled = true
+    }
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
