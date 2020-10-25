@@ -6,7 +6,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @Configuration
 @EnableMongock
-@EnableMongoRepositories(value = [
-    "hu.netcode.slog.data.repository"
-])
+@EnableMongoRepositories(
+    value = [
+        "hu.netcode.slog.data.repository"
+    ]
+)
 class MongoConfiguration
