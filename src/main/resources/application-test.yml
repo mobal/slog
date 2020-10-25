@@ -1,40 +1,10 @@
-amazon:
-  aws:
-    s3:
-      accessKey: ${S3_ACCESSKEY:minioadmin}
-      host: ${S3_HOST:http://localhost}
-      port: ${S3_PORT:9090}
-      region: ${S3_REGION:eu-central-1}
-      secretKey: ${S3_SECRETKEY:minioadmin}
 logging:
   level:
     ROOT: WARN
     org:
-      flywaydb: WARN
-      hibernate: WARN
       springframework:
         web: WARN
-server:
-  port: ${SERVER_PORT:8080}
-slog:
-  paging:
-    size: 10
 spring:
-  datasource:
-    driverClassName: org.h2.Driver
-    password: passwd
-    url: jdbc:h2:mem:testdb
-    username: sa
-  flyway:
-    locations: classpath:/db/migration,classpath:/db/seed
-  h2:
-    console:
-      enabled: true
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: validate
-    open-in-view: false
   output:
     ansi:
       enabled: ALWAYS

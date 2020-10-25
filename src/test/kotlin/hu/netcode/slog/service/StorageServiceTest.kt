@@ -2,6 +2,8 @@ package hu.netcode.slog.service
 
 import com.amazonaws.AmazonClientException
 import com.amazonaws.services.s3.model.Bucket
+import com.amazonaws.services.s3.model.ObjectListing
+import com.amazonaws.services.s3.model.ObjectMetadata
 import com.ninjasquad.springmockk.MockkBean
 import hu.netcode.slog.result.Result
 import io.mockk.clearAllMocks
@@ -144,7 +146,21 @@ class StorageServiceTest {
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class GetObjectMetaData {
-        //
+        @Test
+        fun `successfully get object metadata`() {
+            val objectMetaData = mockk<ObjectMetadata>(relaxed = true)
+            every { s3Service.getObjectMetaData(any(), any()) } returns Result.Success(objectMetaData)
+            storageService.getObjectMetaData(BUCKET, KEY)
+            verifySequence {
+                s3Service.getObjectMetaData(any(), any())
+            }
+        }
+
+        @Test
+        fun `fail to get object metadata because of an AmazonClientException`() {
+            every { s3Service.getObjectMetaData(any(), any()) } returns Result.Failure(AmazonClientException(""))
+            assertThrows<AmazonClientException> { storageService.getObjectMetaData(BUCKET, KEY) }
+        }
     }
 
     @DisplayName(value = "StorageService: Tests for function list buckets")
@@ -173,6 +189,21 @@ class StorageServiceTest {
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class ListObjects {
-        // TODO
+        @Test
+        fun `successfully list objects`() {
+            val objectListing = mockk<ObjectListing>(relaxed = true)
+            every { objectListing.bucketName } returns BUCKET
+            every { s3Service.listObjects(any()) } returns Result.Success(objectListing)
+            storageService.listObjects(BUCKET)
+            verifySequence {
+                s3Service.listObjects(BUCKET)
+            }
+        }
+
+        @Test
+        fun `fail to list objects because of an AmazonClientException`() {
+            every { s3Service.listObjects(any()) } returns Result.Failure(AmazonClientException(""))
+            assertThrows<AmazonClientException> { storageService.listObjects(BUCKET) }
+        }
     }
 }
