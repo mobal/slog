@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import java.io.IOException
 import java.io.InputStream
 
 @SpringBootTest(
@@ -43,35 +44,170 @@ class S3ServiceTest {
         clearAllMocks()
     }
 
+    @DisplayName(value = "S3Service: Tests for function copy object")
+    @Nested
+    @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class CopyObject {
-        //
+        @Test
+        fun `successfully copy object`() {
+            every { s3Client.copyObject(any(), any(), any(), any()) } returns mockk(relaxed = true)
+            val result = s3Service.copyObject(BUCKET, KEY, "destinationBucket", "destinationKey")
+            assertTrue(result.isSuccessful)
+            verifySequence { s3Client.copyObject(any(), any(), any(), any()) }
+        }
+
+        @Test
+        fun `fail to copy object because of an AmazonClientException`() {
+            every { s3Client.copyObject(any(), any(), any(), any()) } throws AmazonClientException("")
+            val result = s3Service.copyObject(BUCKET, KEY, "destinationBucket", "destinationKey")
+            assertTrue(result.isFailure)
+        }
     }
 
+    @DisplayName(value = "S3Service: Tests for function create bucket")
+    @Nested
+    @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class CreateBucket {
-        //
+        @Test
+        fun `successfully create bucket`() {
+            every { s3Client.createBucket(any<String>()) } returns mockk(relaxed = true)
+            val result = s3Service.createBucket(BUCKET)
+            assertTrue(result.isSuccessful)
+            verifySequence { s3Client.createBucket(any<String>()) }
+        }
+
+        @Test
+        fun `fail to create bucket because of an AmazonClientException`() {
+            every { s3Client.createBucket(any<String>()) } throws AmazonClientException("")
+            val result = s3Service.createBucket(BUCKET)
+            assertTrue(result.isFailure)
+        }
     }
 
+    @DisplayName(value = "S3Service: Tests for function delete bucket")
+    @Nested
+    @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class DeleteBucket {
-        //
+        @Test
+        fun `successfully delete bucket`() {
+            every { s3Client.deleteBucket(any<String>()) } returns mockk(relaxed = true)
+            val result = s3Service.deleteBucket(BUCKET)
+            assertTrue(result.isSuccessful)
+            verifySequence { s3Client.deleteBucket(any<String>()) }
+        }
+
+        @Test
+        fun `fail to delete bucket because of an AmazonClientException`() {
+            every { s3Client.deleteBucket(any<String>()) } throws AmazonClientException("")
+            val result = s3Service.deleteBucket(BUCKET)
+            assertTrue(result.isFailure)
+        }
     }
 
+    @DisplayName(value = "S3Service: Tests for function delete object")
+    @Nested
+    @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class DeleteObject {
-        //
+        @Test
+        fun `successfully delete object`() {
+            every { s3Client.deleteObject(any(), any()) } returns mockk(relaxed = true)
+            val result = s3Service.deleteObject(BUCKET, KEY)
+            assertTrue(result.isSuccessful)
+            verifySequence { s3Client.deleteObject(any(), any()) }
+        }
+
+        @Test
+        fun `fail to delete object because of an AmazonClientException`() {
+            every { s3Client.deleteObject(any(), any()) } throws AmazonClientException("")
+            val result = s3Service.deleteObject(BUCKET, KEY)
+            assertTrue(result.isFailure)
+        }
     }
+    @DisplayName(value = "S3Service: Tests for function delete objects")
+    @Nested
+    @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class DeleteObjects {
-        //
+        @Test
+        fun `successfully delete objects`() {
+            every { s3Client.deleteObjects(any()) } returns mockk(relaxed = true)
+            val result = s3Service.deleteObjects(BUCKET, listOf(KEY))
+            assertTrue(result.isSuccessful)
+            verifySequence { s3Client.deleteObjects(any()) }
+        }
+
+        @Test
+        fun `fail to delete objects because of an AmazonClientException`() {
+            every { s3Client.deleteObjects(any()) } throws AmazonClientException("")
+            val result = s3Service.deleteObjects(BUCKET, listOf(KEY))
+            assertTrue(result.isFailure)
+        }
     }
 
+    @DisplayName(value = "S3Service: Tests for function get object")
+    @Nested
+    @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class GetObject {
-        //
+        @Test
+        fun `successfully get object`() {
+            every { s3Client.getObject(any<String>(), any()) } returns mockk(relaxed = true)
+            val result = s3Service.getObject(BUCKET, KEY)
+            assertTrue(result.isSuccessful)
+            verifySequence { s3Client.getObject(any<String>(), any()) }
+        }
+
+        @Test
+        fun `fail to get object because of an AmazonClientException`() {
+            every { s3Client.getObject(any<String>(), any()) } throws AmazonClientException("")
+            val result = s3Service.getObject(BUCKET, KEY)
+            assertTrue(result.isFailure)
+        }
+
+        @Test
+        fun `fail to get object because of an IOException`() {
+            every { s3Client.getObject(any<String>(), any()) } throws IOException("")
+            val result = s3Service.getObject(BUCKET, KEY)
+            assertTrue(result.isFailure)
+        }
     }
 
+    @DisplayName(value = "S3Service: Tests for function get object metadata")
+    @Nested
+    @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class GetObjectMetaData {
-        //
+        @Test
+        fun `successfully get object metadata`() {
+            every { s3Client.getObjectMetadata(any(), any()) } returns mockk(relaxed = true)
+            val result = s3Service.getObjectMetaData(BUCKET, KEY)
+            assertTrue(result.isSuccessful)
+            verifySequence { s3Client.getObjectMetadata(any(), any()) }
+        }
+
+        @Test
+        fun `fail to get object metadata because of an AmazonClientException`() {
+            every { s3Client.getObjectMetadata(any(), any()) } throws AmazonClientException("")
+            val result = s3Service.getObjectMetaData(BUCKET, KEY)
+            assertTrue(result.isFailure)
+        }
     }
 
+    @DisplayName(value = "S3Service: Tests for function get url")
+    @Nested
+    @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class GetUrl {
-        //
+        @Test
+        fun `successfully get url`() {
+            every { s3Client.getUrl(any(), any()) } returns mockk(relaxed = true)
+            val result = s3Service.getUrl(BUCKET, KEY)
+            assertTrue(result.isSuccessful)
+            verifySequence { s3Client.getUrl(any(), any()) }
+        }
+
+        @Test
+        fun `fail to get url because of an exception`() {
+            every { s3Client.getUrl(any(), any()) } throws Exception("")
+            val result = s3Service.getUrl(BUCKET, KEY)
+            assertTrue(result.isFailure)
+        }
     }
 
     @DisplayName(value = "S3Service: Tests for function list buckets")
