@@ -74,12 +74,44 @@ class S3ServiceTest {
         //
     }
 
+    @DisplayName(value = "S3Service: Tests for function list buckets")
+    @Nested
+    @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class ListBuckets {
-        //
+        @Test
+        fun `successfully list buckets`() {
+            every { s3Client.listBuckets() } returns mockk(relaxed = true)
+            val result = s3Service.listBuckets()
+            assertTrue(result.isSuccessful)
+            verifySequence { s3Client.listBuckets() }
+        }
+
+        @Test
+        fun `fail to list buckets because of an exception`() {
+            every { s3Client.listBuckets() } throws AmazonClientException("")
+            val result = s3Service.listBuckets()
+            assertTrue(result.isFailure)
+        }
     }
 
+    @DisplayName(value = "S3Service: Tests for function list objects")
+    @Nested
+    @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class ListObjects {
-        //
+        @Test
+        fun `successfully list objects`() {
+            every { s3Client.listObjects(any<String>()) } returns mockk(relaxed = true)
+            val result = s3Service.listObjects(BUCKET)
+            assertTrue(result.isSuccessful)
+            verifySequence { s3Client.listObjects(any<String>()) }
+        }
+
+        @Test
+        fun `fail to list objects because of an exception`() {
+            every { s3Client.listObjects(any<String>()) } throws AmazonClientException("")
+            val result = s3Service.listObjects(BUCKET)
+            assertTrue(result.isFailure)
+        }
     }
 
     @DisplayName(value = "S3Service: Tests for function put object")
