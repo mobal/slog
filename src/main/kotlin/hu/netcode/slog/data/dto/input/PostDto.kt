@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.stereotype.Component
 import javax.validation.constraints.NotEmpty
 
-@Component
 data class PostDto(
     @get:NotEmpty
     val author: String,
