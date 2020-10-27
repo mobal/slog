@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidatorContext
 
 class PasswordConstraintValidator : ConstraintValidator<PasswordConstraint, UserDto> {
     override fun isValid(value: UserDto, context: ConstraintValidatorContext?): Boolean {
-        return (value.password.isNotEmpty() && value.confirmPassword.isNotEmpty()) &&
+        return value.password.isNotEmpty() && value.confirmPassword.isNotEmpty() &&
             value.password == value.confirmPassword
     }
 }
