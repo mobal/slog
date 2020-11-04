@@ -4,6 +4,7 @@ import com.amazonaws.AmazonClientException
 import com.amazonaws.services.s3.model.Bucket
 import com.amazonaws.services.s3.model.ObjectListing
 import com.amazonaws.services.s3.model.ObjectMetadata
+import com.amazonaws.services.s3.model.S3ObjectSummary
 import com.ninjasquad.springmockk.MockkBean
 import hu.netcode.slog.result.Result
 import io.mockk.clearAllMocks
@@ -25,7 +26,9 @@ import org.springframework.http.HttpStatus
 import java.io.IOException
 import java.lang.IllegalArgumentException
 import java.net.URI
+import java.time.ZonedDateTime
 import java.util.Base64
+import java.util.Date
 
 @SpringBootTest(
     classes = [
@@ -192,9 +195,16 @@ class StorageServiceTest {
         @Test
         fun `successfully list objects`() {
             val objectListing = mockk<ObjectListing>(relaxed = true)
+            val s3ObjectSummary = mockk<S3ObjectSummary>(relaxed = true)
+            val s3ObjectSummaryList = listOf(s3ObjectSummary)
+            every { s3ObjectSummary.key } returns "key"
+            every { s3ObjectSummary.size } returns 1000
+            every { s3ObjectSummary.lastModified } returns Date.from(ZonedDateTime.now().toInstant())
             every { objectListing.bucketName } returns BUCKET
+            every { objectListing.objectSummaries } returns s3ObjectSummaryList
             every { s3Service.listObjects(any()) } returns Result.Success(objectListing)
-            storageService.listObjects(BUCKET)
+            val s3ObjectDtoList = storageService.listObjects(BUCKET)
+            assertEquals(1, s3ObjectDtoList.size)
             verifySequence {
                 s3Service.listObjects(BUCKET)
             }
