@@ -61,16 +61,16 @@ class StorageController(
         // TODO: Add implementation
     }
 
-    @GetMapping(value = ["/buckets/{bucketName}"])
-    @ResponseStatus(value = HttpStatus.OK)
-    fun objects(@PathVariable bucketName: String): List<S3ObjectDto> {
-        return storageService.listObjects(bucketName)
-    }
-
     @GetMapping(value = ["/buckets/{bucketName}/{key}"])
     @ResponseStatus(value = HttpStatus.OK)
     fun `object`(@PathVariable bucketName: String, @PathVariable key: String): ResponseEntity<ByteArray> {
         return storageService.getObject(bucketName, key)
+    }
+
+    @GetMapping(value = ["/buckets/{bucketName}"])
+    @ResponseStatus(value = HttpStatus.OK)
+    fun objects(@PathVariable bucketName: String): List<S3ObjectDto> {
+        return storageService.listObjects(bucketName)
     }
 
     @GetMapping(value = ["/buckets/{bucketName}/{key}/meta"])
