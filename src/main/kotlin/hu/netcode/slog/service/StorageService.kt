@@ -41,7 +41,7 @@ class StorageService(
     fun deleteObject(bucketName: String, key: String): ResponseEntity<Unit> {
         when (val getObjectResult = s3Service.getObject(bucketName, key)) {
             is Result.Success -> when (val deleteObjectResult = s3Service.deleteObject(bucketName, key)) {
-                is Result.Success -> return ResponseEntity.noContent().build<Unit>()
+                is Result.Success -> return ResponseEntity.noContent().build()
                 is Result.Failure -> throw deleteObjectResult.error
             }
             is Result.Failure -> throw getObjectResult.error
