@@ -3,6 +3,10 @@ package hu.netcode.slog.controller
 import hu.netcode.slog.data.document.Post
 import hu.netcode.slog.data.dto.input.PostDto
 import hu.netcode.slog.service.PostService
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -33,6 +37,32 @@ class PostController(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
+    @Operation(
+        description = "Create a new post",
+        responses = [
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "Created",
+                responseCode = "201"
+            ),
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "Bad Request",
+                responseCode = "400"
+            ),
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "Internal Server Error",
+                responseCode = "500"
+            )
+        ]
+    )
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     fun create(@RequestBody @Valid dto: PostDto, req: HttpServletRequest): ResponseEntity<Unit> {
@@ -42,12 +72,57 @@ class PostController(
     }
 
     @DeleteMapping(value = ["/{slug}"])
+    @Operation(
+        description = "Delete the specified post",
+        responses = [
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "No Content",
+                responseCode = "204"
+            ),
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "Not Found",
+                responseCode = "404"
+            ),
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "Internal Server Error",
+                responseCode = "500"
+            )
+        ]
+    )
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     fun delete(@PathVariable slug: String) {
         postService.delete(slug)
     }
 
     @GetMapping
+    @Operation(
+        description = "Get all posts",
+        responses = [
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "OK",
+                responseCode = "200"
+            ),
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "Internal Server Error",
+                responseCode = "500"
+            )
+        ]
+    )
     @ResponseStatus(value = HttpStatus.OK)
     fun findAll(
         @RequestParam(
@@ -61,11 +136,63 @@ class PostController(
     }
 
     @GetMapping(value = ["/{slug}"])
+    @Operation(
+        description = "Get the specified post",
+        responses = [
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "OK",
+                responseCode = "200"
+            ),
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "Not Found",
+                responseCode = "404"
+            ),
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "Internal Server Error",
+                responseCode = "500"
+            )
+        ]
+    )
     @ResponseStatus(value = HttpStatus.OK)
     fun findBySlug(@PathVariable slug: String): Post {
         return postService.findBySlug(slug)
     }
 
+    @Operation(
+        description = "Update the specified post",
+        responses = [
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "OK",
+                responseCode = "200"
+            ),
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "Not Found",
+                responseCode = "404"
+            ),
+            ApiResponse(
+                content = [
+                    Content(schema = Schema(hidden = true))
+                ],
+                description = "Internal Server Error",
+                responseCode = "500"
+            )
+        ]
+    )
     @PutMapping(value = ["/{slug}"])
     @ResponseStatus(value = HttpStatus.OK)
     fun update(@PathVariable slug: String, @RequestBody @Valid dto: PostDto) {

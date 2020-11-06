@@ -52,9 +52,9 @@ class UserController(
         return userService.findByUsername(username)
     }
 
-    @PostMapping(value = ["/registration"])
+    @PostMapping(value = ["/register"])
     @ResponseStatus(value = HttpStatus.CREATED)
-    fun registration(@RequestBody userDto: UserDto, req: HttpServletRequest): ResponseEntity<Unit> {
+    fun register(@RequestBody @Valid userDto: UserDto, req: HttpServletRequest): ResponseEntity<Unit> {
         logger.info("User registration started {}", userDto)
         val user = userService.create(userDto)
         return ResponseEntity.created(URI("${req.requestURL}/${user.username}"))

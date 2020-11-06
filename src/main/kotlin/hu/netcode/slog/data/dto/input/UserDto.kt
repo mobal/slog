@@ -4,13 +4,13 @@ import javax.validation.constraints.Email
 import javax.validation.constraints.NotEmpty
 
 data class UserDto(
-    @Email
+    @get:Email
     val email: String,
     val name: String,
-    @NotEmpty
+    @get:NotEmpty
     val username: String,
-    @NotEmpty
+    @get:NotEmpty
     val password: String,
-    @NotEmpty
+    @get:NotEmpty
     val confirmPassword: String
 )
