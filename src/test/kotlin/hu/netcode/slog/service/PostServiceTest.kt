@@ -77,7 +77,7 @@ class PostServiceTest {
     @MockkBean(relaxed = true)
     private lateinit var slugify: Slugify
 
-    @DisplayName(value = "PostService: Test for function delete")
+    @DisplayName(value = "PostService: Tests for function delete")
     @Nested
     @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class Delete {
@@ -95,7 +95,7 @@ class PostServiceTest {
         }
     }
 
-    @DisplayName(value = "PostService: Test for function findAll")
+    @DisplayName(value = "PostService: Tests for function findAll")
     @Nested
     @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class FindAll {
@@ -120,7 +120,7 @@ class PostServiceTest {
         }
     }
 
-    @DisplayName(value = "PostService: Test for function findBySlug")
+    @DisplayName(value = "PostService: Tests for function findBySlug")
     @Nested
     @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class FindBySlug {
