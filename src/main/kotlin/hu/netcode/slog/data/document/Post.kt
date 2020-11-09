@@ -3,7 +3,7 @@ package hu.netcode.slog.data.document
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 
@@ -26,11 +26,11 @@ data class Post(
     @JsonIgnore
     val visible: Boolean = true,
     @JsonIgnore
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val createdAt: ZonedDateTime? = ZonedDateTime.now(),
     @JsonIgnore
-    val deletedAt: LocalDateTime? = null,
-    val publishedAt: LocalDateTime? = null,
-    var updatedAt: LocalDateTime = LocalDateTime.now()
+    val deletedAt: ZonedDateTime? = null,
+    val publishedAt: ZonedDateTime? = null,
+    var updatedAt: ZonedDateTime = ZonedDateTime.now()
 ) {
     @JsonIgnore
     fun isDeleted(): Boolean {

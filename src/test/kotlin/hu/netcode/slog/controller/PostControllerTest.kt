@@ -27,7 +27,7 @@ import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.put
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 @AutoConfigureMockMvc
 @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
@@ -58,9 +58,9 @@ class PostControllerTest {
             title = "Title",
             tagList = listOf("tag"),
             visible = true,
-            createdAt = LocalDateTime.now(),
-            publishedAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            createdAt = ZonedDateTime.now(),
+            publishedAt = ZonedDateTime.now(),
+            updatedAt = ZonedDateTime.now()
         )
     }
 

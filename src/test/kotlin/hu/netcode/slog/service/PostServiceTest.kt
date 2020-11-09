@@ -24,7 +24,7 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.util.Optional
 
 @SpringBootTest(
@@ -55,9 +55,9 @@ class PostServiceTest {
             title = "Title",
             tagList = listOf("tag"),
             visible = true,
-            createdAt = LocalDateTime.now(),
-            publishedAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            createdAt = ZonedDateTime.now(),
+            publishedAt = ZonedDateTime.now(),
+            updatedAt = ZonedDateTime.now()
         )
     }
 
@@ -77,7 +77,7 @@ class PostServiceTest {
     @MockkBean(relaxed = true)
     private lateinit var slugify: Slugify
 
-    @DisplayName(value = "PostService: Test for function delete")
+    @DisplayName(value = "PostService: Tests for function delete")
     @Nested
     @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class Delete {
@@ -95,7 +95,7 @@ class PostServiceTest {
         }
     }
 
-    @DisplayName(value = "PostService: Test for function findAll")
+    @DisplayName(value = "PostService: Tests for function findAll")
     @Nested
     @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class FindAll {
@@ -120,7 +120,7 @@ class PostServiceTest {
         }
     }
 
-    @DisplayName(value = "PostService: Test for function findBySlug")
+    @DisplayName(value = "PostService: Tests for function findBySlug")
     @Nested
     @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
     inner class FindBySlug {

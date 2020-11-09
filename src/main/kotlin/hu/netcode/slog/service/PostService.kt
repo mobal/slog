@@ -10,7 +10,7 @@ import hu.netcode.slog.properties.PagingProperties
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import kotlin.jvm.Throws
 
 @Service
@@ -32,14 +32,14 @@ class PostService(
     fun findAll(page: Int): List<Post> {
         return postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtBefore(
             PageRequest.of(page - 1, pagingProperties.size),
-            LocalDateTime.now()
+            ZonedDateTime.now()
         )
     }
 
     @Throws(exceptionClasses = [DocumentNotFoundException::class])
     fun findBySlug(slug: String): Post {
         val op = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtBeforeAndMetaSlug(
-            LocalDateTime.now(),
+            ZonedDateTime.now(),
             slug
         )
         if (op.isPresent) {
@@ -66,7 +66,7 @@ class PostService(
     @Throws(exceptionClasses = [DocumentNotFoundException::class])
     fun update(dto: PostDto, slug: String) {
         val op = postRepository.findByVisibleTrueAndDeletedAtIsNullAndPublishedAtBeforeAndMetaSlug(
-            LocalDateTime.now(),
+            ZonedDateTime.now(),
             slug
         )
         if (op.isPresent) {
@@ -76,7 +76,7 @@ class PostService(
                     body = dto.body
                     tagList = dto.tagList
                     title = dto.title
-                    updatedAt = LocalDateTime.now()
+                    updatedAt = ZonedDateTime.now()
                 }
             )
         } else {
