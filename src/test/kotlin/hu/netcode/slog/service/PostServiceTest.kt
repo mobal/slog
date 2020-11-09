@@ -24,7 +24,7 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.util.Optional
 
 @SpringBootTest(
@@ -55,9 +55,9 @@ class PostServiceTest {
             title = "Title",
             tagList = listOf("tag"),
             visible = true,
-            createdAt = LocalDateTime.now(),
-            publishedAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            createdAt = ZonedDateTime.now(),
+            publishedAt = ZonedDateTime.now(),
+            updatedAt = ZonedDateTime.now()
         )
     }
 

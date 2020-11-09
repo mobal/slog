@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.util.UUID
 
 @Document(collection = "users")
@@ -23,9 +23,9 @@ data class User(
     var password: String,
     @JsonIgnore
     var username: String,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val createdAt: ZonedDateTime = ZonedDateTime.now(),
     @JsonIgnore
-    val deletedAt: LocalDateTime? = null,
+    val deletedAt: ZonedDateTime? = null,
     @JsonIgnore
     val activation: String? = null
 ) {

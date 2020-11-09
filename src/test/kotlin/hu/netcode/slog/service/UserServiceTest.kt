@@ -21,7 +21,7 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.util.Optional
 
 @SpringBootTest(
@@ -44,7 +44,7 @@ class UserServiceTest {
             name = "User",
             password = "passwd",
             username = "username",
-            createdAt = LocalDateTime.now()
+            createdAt = ZonedDateTime.now()
         )
     }
 

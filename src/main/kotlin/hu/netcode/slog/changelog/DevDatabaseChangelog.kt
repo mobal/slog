@@ -10,7 +10,7 @@ import hu.netcode.slog.data.document.Post
 import hu.netcode.slog.data.document.User
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Profile
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.util.Locale
 
 @ChangeLog(order = "001")
@@ -54,7 +54,7 @@ class DevDatabaseChangelog {
                     meta = Meta(slugify.slugify(faker.book().title())),
                     tagList = faker.lorem().words(5),
                     title = faker.book().title(),
-                    publishedAt = LocalDateTime.now()
+                    publishedAt = ZonedDateTime.now()
                 )
             )
         }
