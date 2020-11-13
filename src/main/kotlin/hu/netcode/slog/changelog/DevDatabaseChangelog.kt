@@ -33,8 +33,8 @@ class DevDatabaseChangelog {
     )
     fun cleanUp(mongockTemplate: MongockTemplate) {
         logger.info("Drop collections")
-        mongockTemplate.getCollection("posts").drop()
-        mongockTemplate.getCollection("users").drop()
+        mongockTemplate.dropCollection("posts")
+        mongockTemplate.dropCollection("users")
     }
 
     @ChangeSet(
