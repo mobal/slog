@@ -88,7 +88,7 @@ class UserControllerTest {
             mockMvc.delete(url) {
                 accept = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isNoContent }
+                status { isNoContent() }
             }
             verifySequence {
                 userService.delete(any())
@@ -101,7 +101,7 @@ class UserControllerTest {
             mockMvc.delete(url) {
                 accept = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isInternalServerError }
+                status { isInternalServerError() }
             }
         }
     }
@@ -116,7 +116,7 @@ class UserControllerTest {
             mockMvc.get(URL) {
                 accept = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { is2xxSuccessful }
+                status { is2xxSuccessful() }
             }
         }
 
@@ -126,7 +126,7 @@ class UserControllerTest {
             mockMvc.get(URL) {
                 accept = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { is2xxSuccessful }
+                status { is2xxSuccessful() }
             }
         }
     }
@@ -142,7 +142,7 @@ class UserControllerTest {
             mockMvc.get(url) {
                 accept = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { is2xxSuccessful }
+                status { is2xxSuccessful() }
             }
         }
 
@@ -152,7 +152,7 @@ class UserControllerTest {
             mockMvc.get(url) {
                 accept = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isNotFound }
+                status { isNotFound() }
             }
         }
     }
@@ -170,7 +170,7 @@ class UserControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isCreated }
+                status { isCreated() }
             }
         }
 
@@ -182,7 +182,7 @@ class UserControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isBadRequest }
+                status { isBadRequest() }
             }
         }
 
@@ -194,7 +194,7 @@ class UserControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isInternalServerError }
+                status { isInternalServerError() }
             }
         }
     }
@@ -212,7 +212,7 @@ class UserControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { is2xxSuccessful }
+                status { is2xxSuccessful() }
             }
         }
 
@@ -224,7 +224,7 @@ class UserControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isBadRequest }
+                status { isBadRequest() }
             }
         }
 
@@ -236,7 +236,7 @@ class UserControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isNotFound }
+                status { isNotFound() }
             }
         }
 
@@ -248,7 +248,7 @@ class UserControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isInternalServerError }
+                status { isInternalServerError() }
             }
         }
     }

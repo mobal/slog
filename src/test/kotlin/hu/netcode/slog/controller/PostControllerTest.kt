@@ -90,7 +90,7 @@ class PostControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isCreated }
+                status { isCreated() }
             }
         }
 
@@ -102,7 +102,7 @@ class PostControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isBadRequest }
+                status { isBadRequest() }
             }
         }
     }
@@ -120,7 +120,7 @@ class PostControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isNoContent }
+                status { isNoContent() }
             }
             verifySequence { postService.delete(any()) }
         }
@@ -133,7 +133,7 @@ class PostControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isInternalServerError }
+                status { isInternalServerError() }
             }
             verifySequence { postService.delete(any()) }
         }
@@ -151,7 +151,7 @@ class PostControllerTest {
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
                 content { json(objectMapper.writeValueAsString(listOf(post))) }
-                status { isOk }
+                status { isOk() }
             }
         }
 
@@ -164,7 +164,7 @@ class PostControllerTest {
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
                 content { json("[]") }
-                status { isOk }
+                status { isOk() }
             }
         }
     }
@@ -182,7 +182,7 @@ class PostControllerTest {
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
                 content { json(objectMapper.writeValueAsString(post)) }
-                status { isOk }
+                status { isOk() }
             }
         }
 
@@ -194,7 +194,7 @@ class PostControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isNotFound }
+                status { isNotFound() }
             }
         }
     }
@@ -212,7 +212,7 @@ class PostControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isOk }
+                status { isOk() }
             }
             verifySequence { postService.update(any(), any()) }
         }
@@ -225,7 +225,7 @@ class PostControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isInternalServerError }
+                status { isInternalServerError() }
             }
             verifySequence { postService.update(any(), any()) }
         }

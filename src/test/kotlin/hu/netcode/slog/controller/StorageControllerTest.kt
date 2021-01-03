@@ -81,7 +81,7 @@ class StorageControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isCreated }
+                status { isCreated() }
             }
         }
 
@@ -95,7 +95,7 @@ class StorageControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isNotFound }
+                status { isNotFound() }
             }
         }
 
@@ -109,7 +109,7 @@ class StorageControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isInternalServerError }
+                status { isInternalServerError() }
             }
         }
     }
@@ -124,7 +124,7 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isOk }
+                status { isOk() }
             }
         }
     }
@@ -140,7 +140,7 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isNoContent }
+                status { isNoContent() }
             }
         }
 
@@ -151,7 +151,7 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isNotFound }
+                status { isNotFound() }
             }
         }
 
@@ -162,7 +162,7 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isInternalServerError }
+                status { isInternalServerError() }
             }
         }
     }
@@ -181,7 +181,7 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isOk }
+                status { isOk() }
             }
         }
 
@@ -192,7 +192,7 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isNotFound }
+                status { isNotFound() }
             }
         }
 
@@ -203,7 +203,7 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isInternalServerError }
+                status { isInternalServerError() }
             }
         }
     }
@@ -221,7 +221,7 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isOk }
+                status { isOk() }
             }
         }
 
@@ -232,7 +232,7 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isNotFound }
+                status { isNotFound() }
             }
         }
 
@@ -243,7 +243,7 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isInternalServerError }
+                status { isInternalServerError() }
             }
         }
     }
@@ -258,7 +258,7 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isOk }
+                status { isOk() }
             }
         }
     }
