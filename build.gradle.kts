@@ -91,7 +91,3 @@ sonarqube {
         property("sonar.sources", "src/main/kotlin")
     }
 }
-
-testlogger {
-    setTheme("mocha")
-}
