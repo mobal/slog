@@ -53,6 +53,7 @@ class PostControllerTest {
             author = "Author",
             body = "Body",
             meta = Meta(
+                readingTime = 5,
                 slug = SLUG
             ),
             title = "Title",

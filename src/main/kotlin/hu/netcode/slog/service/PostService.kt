@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import java.time.ZonedDateTime
+import java.util.StringTokenizer
 import kotlin.jvm.Throws
+import kotlin.math.ceil
 
 @Service
 class PostService(
@@ -21,9 +23,14 @@ class PostService(
 ) {
     private companion object {
         const val ERROR_MESSAGE_POST_NOT_FOUND = "The requested post was not found"
+        const val WORDS_PER_MINUTE = 200
     }
 
     private val logger = LoggerFactory.getLogger(javaClass)
+
+    private fun calculateReadingTime(body: String): Int {
+        return ceil((StringTokenizer(body).countTokens() / 200).toDouble()).toInt()
+    }
 
     fun delete(slug: String) {
         return postRepository.deleteByMetaSlug(slug)
@@ -45,7 +52,7 @@ class PostService(
         if (op.isPresent) {
             return op.get()
         } else {
-            throw DocumentNotFoundException("$ERROR_MESSAGE_POST_NOT_FOUND:$slug")
+            throw DocumentNotFoundException("$ERROR_MESSAGE_POST_NOT_FOUND: $slug")
         }
     }
 
@@ -55,6 +62,7 @@ class PostService(
                 author = "user",
                 body = dto.body,
                 meta = Meta(
+                    readingTime = calculateReadingTime(dto.body),
                     slug = slugify.slugify(dto.title)
                 ),
                 tagList = dto.tagList,
@@ -80,7 +88,7 @@ class PostService(
                 }
             )
         } else {
-            throw DocumentNotFoundException("$ERROR_MESSAGE_POST_NOT_FOUND:$slug")
+            throw DocumentNotFoundException("$ERROR_MESSAGE_POST_NOT_FOUND: $slug")
         }
     }
 }

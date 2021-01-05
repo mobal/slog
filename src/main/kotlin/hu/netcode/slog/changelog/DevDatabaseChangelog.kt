@@ -51,7 +51,10 @@ class DevDatabaseChangelog {
                 Post(
                     author = faker.book().author(),
                     body = faker.lorem().paragraph(),
-                    meta = Meta(slugify.slugify(faker.book().title())),
+                    meta = Meta(
+                        readingTime = 0,
+                        slug = slugify.slugify(faker.book().title())
+                    ),
                     tagList = faker.lorem().words(5),
                     title = faker.book().title(),
                     publishedAt = ZonedDateTime.now()
