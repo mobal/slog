@@ -1,13 +1,11 @@
 package hu.netcode.slog.data.document
 
-import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import hu.netcode.slog.serializer.ZonedDateTimeSerializer
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 
