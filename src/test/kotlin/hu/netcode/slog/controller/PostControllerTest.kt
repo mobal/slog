@@ -24,7 +24,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Login
-import org.springframework.test.web.servlet.*
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.delete
+import org.springframework.test.web.servlet.get
+import org.springframework.test.web.servlet.post
+import org.springframework.test.web.servlet.put
 import java.time.ZonedDateTime
 
 @AutoConfigureMockMvc
@@ -85,7 +89,7 @@ class PostControllerTest {
         @Test
         fun `successfully create post`() {
             mockMvc.post(URL) {
-                accept = MediaType.APPLICATION_JSON
+                var accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
                 with(csrf())
@@ -293,7 +297,7 @@ class PostControllerTest {
         }
 
         @Test
-            fun `failed to update post because csrf token is invalid`() {
+        fun `failed to update post because csrf token is invalid`() {
             mockMvc.put(url) {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
