@@ -22,11 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.delete
-import org.springframework.test.web.servlet.get
-import org.springframework.test.web.servlet.post
-import org.springframework.test.web.servlet.put
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Login
+import org.springframework.test.web.servlet.*
 import java.time.ZonedDateTime
 
 @AutoConfigureMockMvc
@@ -90,6 +88,8 @@ class PostControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isCreated() }
             }
@@ -97,13 +97,41 @@ class PostControllerTest {
 
         @Test
         fun `failed to create post because validation fails`() {
-            val dto = PostDto(author = "", body = "", title = "", tagList = emptyList())
+            mockMvc.post(URL) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(
+                    PostDto(author = "", body = "", title = "", tagList = emptyList())
+                )
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
+            }.andExpect {
+                status { isBadRequest() }
+            }
+        }
+
+        @Test
+        fun `failed to create post because csrf token is invalid`() {
             mockMvc.post(URL) {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf().useInvalidToken())
+                with(oauth2Login())
             }.andExpect {
-                status { isBadRequest() }
+                status { isForbidden() }
+            }
+        }
+
+        @Test
+        fun `failed to create post without login`() {
+            mockMvc.post(URL) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(dto)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isUnauthorized() }
             }
         }
     }
@@ -120,6 +148,8 @@ class PostControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isNoContent() }
             }
@@ -133,10 +163,37 @@ class PostControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isInternalServerError() }
             }
             verifySequence { postService.delete(any()) }
+        }
+
+        @Test
+        fun `failed to delete post because csrf token is invalid`() {
+            mockMvc.delete(url) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(dto)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf().useInvalidToken())
+                with(oauth2Login())
+            }.andExpect {
+                status { isForbidden() }
+            }
+        }
+
+        @Test
+        fun `failed to delete post without login`() {
+            mockMvc.delete(url) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(dto)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isUnauthorized() }
+            }
         }
     }
 
@@ -212,6 +269,8 @@ class PostControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isOk() }
             }
@@ -225,10 +284,36 @@ class PostControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isInternalServerError() }
             }
             verifySequence { postService.update(any(), any()) }
+        }
+
+        @Test
+            fun `failed to update post because csrf token is invalid`() {
+            mockMvc.put(url) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(dto)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf().useInvalidToken())
+            }.andExpect {
+                status { isForbidden() }
+            }
+        }
+
+        @Test
+        fun `failed to update post without login`() {
+            mockMvc.put(url) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(dto)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isUnauthorized() }
+            }
         }
     }
 }
