@@ -24,7 +24,20 @@ slog:
 spring:
   data:
     mongodb:
-      uri: mongodb://${MONGODB_USER:root}:${MONGODB_PASSWORD:example}@${MONGODB_HOST:mongo}/${MONGODB_DB:prod}?retryWrites=true&w=majority
+      uri: mongodb+srv://${MONGODB_USER:root}:${MONGODB_PASSWORD:example}@${MONGODB_HOST:mongo}/${MONGODB_DB:prod}?retryWrites=true&w=majority
   output:
     ansi:
       enabled: ALWAYS
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: ${OAUTH2_FACEBOOK_CLIENT_ID}
+            client-secret: ${OAUTH2_FACEBOOK_CLIENT_SECRET}
+          github:
+            client-id: ${OAUTH2_GITHUB_CLIENT_ID}
+            client-secret: ${OAUTH2_GITHUB_CLIENT_SECRET}
+          google:
+            client-id: ${OAUTH2_GOOGLE_CLIENT_ID}
+            client-secret: ${OAUTH2_GOOGLE_CLIENT_SECRET}
