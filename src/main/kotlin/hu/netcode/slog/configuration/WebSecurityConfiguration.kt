@@ -9,12 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 class WebSecurityConfiguration : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity?) {
         http?.authorizeRequests {
+            it.antMatchers("/api/auth/**").authenticated()
             it.antMatchers(HttpMethod.DELETE).authenticated()
-            it.antMatchers(HttpMethod.GET).anonymous()
+            it.antMatchers(HttpMethod.GET).permitAll()
             it.antMatchers(HttpMethod.POST).authenticated()
             it.antMatchers(HttpMethod.PUT).authenticated()
         }
-        http?.formLogin()
-        http?.httpBasic()
+        http?.oauth2Login()
     }
 }

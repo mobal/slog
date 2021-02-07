@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration
 class ObjectMapperConfiguration {
     @Bean
     fun objectMapper(): ObjectMapper {
-        return jacksonObjectMapper().registerModule(JavaTimeModule())
+        return jacksonObjectMapper().findAndRegisterModules()
     }
 }
