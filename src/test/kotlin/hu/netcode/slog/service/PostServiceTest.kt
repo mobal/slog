@@ -50,6 +50,7 @@ class PostServiceTest {
             author = "Author",
             body = "Body",
             meta = Meta(
+                readingTime = 5,
                 slug = SLUG
             ),
             title = "Title",
@@ -142,7 +143,7 @@ class PostServiceTest {
             val ex = assertThrows<DocumentNotFoundException> {
                 postService.findBySlug(slug)
             }
-            assertEquals("$ERROR_MESSAGE_POST_NOT_FOUND:$slug", ex.message)
+            assertEquals("$ERROR_MESSAGE_POST_NOT_FOUND: $slug", ex.message)
         }
     }
 
@@ -187,7 +188,7 @@ class PostServiceTest {
             val ex = assertThrows<DocumentNotFoundException> {
                 postService.update(dto, SLUG)
             }
-            assertEquals("$ERROR_MESSAGE_POST_NOT_FOUND:$SLUG", ex.message)
+            assertEquals("$ERROR_MESSAGE_POST_NOT_FOUND: $SLUG", ex.message)
         }
     }
 }

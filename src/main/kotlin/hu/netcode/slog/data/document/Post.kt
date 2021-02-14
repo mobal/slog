@@ -1,6 +1,8 @@
 package hu.netcode.slog.data.document
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import hu.netcode.slog.serializer.ZonedDateTimeSerializer
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.ZonedDateTime
@@ -29,7 +31,9 @@ data class Post(
     val createdAt: ZonedDateTime? = ZonedDateTime.now(),
     @JsonIgnore
     val deletedAt: ZonedDateTime? = null,
+    @JsonSerialize(using = ZonedDateTimeSerializer::class)
     val publishedAt: ZonedDateTime? = null,
+    @JsonSerialize(using = ZonedDateTimeSerializer::class)
     var updatedAt: ZonedDateTime = ZonedDateTime.now()
 ) {
     @JsonIgnore

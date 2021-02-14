@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Login
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
@@ -53,6 +55,7 @@ class PostControllerTest {
             author = "Author",
             body = "Body",
             meta = Meta(
+                readingTime = 5,
                 slug = SLUG
             ),
             title = "Title",
@@ -86,23 +89,40 @@ class PostControllerTest {
         @Test
         fun `successfully create post`() {
             mockMvc.post(URL) {
-                accept = MediaType.APPLICATION_JSON
+                var accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
-                status { isCreated }
+                status { isCreated() }
             }
         }
 
         @Test
         fun `failed to create post because validation fails`() {
-            val dto = PostDto(author = "", body = "", title = "", tagList = emptyList())
+            mockMvc.post(URL) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(
+                    PostDto(author = "", body = "", title = "", tagList = emptyList())
+                )
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
+            }.andExpect {
+                status { isBadRequest() }
+            }
+        }
+
+        @Test
+        fun `failed to create post without login`() {
             mockMvc.post(URL) {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
             }.andExpect {
-                status { isBadRequest }
+                status { isForbidden() }
             }
         }
     }
@@ -119,8 +139,10 @@ class PostControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
-                status { isNoContent }
+                status { isNoContent() }
             }
             verifySequence { postService.delete(any()) }
         }
@@ -132,10 +154,24 @@ class PostControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
-                status { isInternalServerError }
+                status { isInternalServerError() }
             }
             verifySequence { postService.delete(any()) }
+        }
+
+        @Test
+        fun `failed to delete post without login`() {
+            mockMvc.delete(url) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(dto)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isForbidden() }
+            }
         }
     }
 
@@ -151,7 +187,7 @@ class PostControllerTest {
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
                 content { json(objectMapper.writeValueAsString(listOf(post))) }
-                status { isOk }
+                status { isOk() }
             }
         }
 
@@ -164,7 +200,7 @@ class PostControllerTest {
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
                 content { json("[]") }
-                status { isOk }
+                status { isOk() }
             }
         }
     }
@@ -182,7 +218,7 @@ class PostControllerTest {
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
                 content { json(objectMapper.writeValueAsString(post)) }
-                status { isOk }
+                status { isOk() }
             }
         }
 
@@ -194,7 +230,7 @@ class PostControllerTest {
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
             }.andExpect {
-                status { isNotFound }
+                status { isNotFound() }
             }
         }
     }
@@ -211,8 +247,10 @@ class PostControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
-                status { isOk }
+                status { isOk() }
             }
             verifySequence { postService.update(any(), any()) }
         }
@@ -224,10 +262,36 @@ class PostControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
-                status { isInternalServerError }
+                status { isInternalServerError() }
             }
             verifySequence { postService.update(any(), any()) }
+        }
+
+        @Test
+        fun `failed to update post because csrf token is invalid`() {
+            mockMvc.put(url) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(dto)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf().useInvalidToken())
+            }.andExpect {
+                status { isForbidden() }
+            }
+        }
+
+        @Test
+        fun `failed to update post without login`() {
+            mockMvc.put(url) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(dto)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isForbidden() }
+            }
         }
     }
 }
