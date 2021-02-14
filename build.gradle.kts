@@ -5,13 +5,13 @@ plugins {
     id("com.avast.gradle.docker-compose") version "0.14.0"
     id("idea")
     id("jacoco")
-    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.21"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.30"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
     id("org.sonarqube") version "3.0"
     id("org.springframework.boot") version "2.4.1"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
-    kotlin("jvm") version "1.4.21"
-    kotlin("plugin.spring") version "1.4.21"
+    kotlin("jvm") version "1.4.30"
+    kotlin("plugin.spring") version "1.4.30"
 }
 
 group = "hu.netcode"
@@ -30,9 +30,10 @@ repositories {
 
 dependencies {
     implementation("com.amazonaws:aws-java-sdk-s3:1.11.930")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.11.4")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.11.4")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.4")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.12.1")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.12.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
     implementation("com.github.cloudyrock.mongock:mongock-spring-v5:4.1.19")
     implementation("com.github.cloudyrock.mongock:mongodb-springdata-v3-driver:4.1.19")
     implementation("com.github.javafaker:javafaker:1.0.2")
@@ -46,6 +47,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-ui:1.5.2")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.data:spring-data-rest-core")
@@ -56,6 +58,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
+    testImplementation("org.springframework.security:spring-security-test")
 }
 
 tasks.withType<Test> {

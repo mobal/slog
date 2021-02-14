@@ -2,6 +2,8 @@ package hu.netcode.slog.data.document
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import hu.netcode.slog.serializer.ZonedDateTimeSerializer
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.ZonedDateTime
@@ -23,6 +25,7 @@ data class User(
     var password: String,
     @JsonIgnore
     var username: String,
+    @JsonSerialize(using = ZonedDateTimeSerializer::class)
     val createdAt: ZonedDateTime = ZonedDateTime.now(),
     @JsonIgnore
     val deletedAt: ZonedDateTime? = null,

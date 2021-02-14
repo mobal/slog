@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Login
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
@@ -87,6 +89,8 @@ class UserControllerTest {
             every { userService.delete(any()) } just Runs
             mockMvc.delete(url) {
                 accept = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isNoContent() }
             }
@@ -100,8 +104,20 @@ class UserControllerTest {
             every { userService.delete(any()) } throws Exception(ERROR_MESSAGE)
             mockMvc.delete(url) {
                 accept = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isInternalServerError() }
+            }
+        }
+
+        @Test
+        fun `fail to delete user without login`() {
+            mockMvc.delete(url) {
+                accept = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isForbidden() }
             }
         }
     }
@@ -169,6 +185,8 @@ class UserControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isCreated() }
             }
@@ -181,6 +199,8 @@ class UserControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isBadRequest() }
             }
@@ -193,8 +213,22 @@ class UserControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isInternalServerError() }
+            }
+        }
+
+        @Test
+        fun `failed to create user without login`() {
+            mockMvc.post(url) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(dto)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isForbidden() }
             }
         }
     }
@@ -211,6 +245,8 @@ class UserControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { is2xxSuccessful() }
             }
@@ -223,6 +259,8 @@ class UserControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isBadRequest() }
             }
@@ -235,6 +273,8 @@ class UserControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isNotFound() }
             }
@@ -247,8 +287,22 @@ class UserControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isInternalServerError() }
+            }
+        }
+
+        @Test
+        fun `fail to update user without login`() {
+            mockMvc.put(url) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(dto)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isForbidden() }
             }
         }
     }

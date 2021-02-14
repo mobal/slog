@@ -21,6 +21,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Login
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.delete
@@ -80,6 +82,8 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isCreated() }
             }
@@ -94,6 +98,8 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isNotFound() }
             }
@@ -108,8 +114,22 @@ class StorageControllerTest {
                 accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isInternalServerError() }
+            }
+        }
+
+        @Test
+        fun `fail to add object without login`() {
+            mockMvc.post(url) {
+                accept = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(dto)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isForbidden() }
             }
         }
     }
@@ -139,6 +159,8 @@ class StorageControllerTest {
             mockMvc.delete("$URL/buckets/bucket/key") {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isNoContent() }
             }
@@ -150,6 +172,8 @@ class StorageControllerTest {
             mockMvc.delete("$URL/buckets/bucket/key") {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isNotFound() }
             }
@@ -161,8 +185,21 @@ class StorageControllerTest {
             mockMvc.delete("$URL/buckets/bucket/key") {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+                with(oauth2Login())
             }.andExpect {
                 status { isInternalServerError() }
+            }
+        }
+
+        @Test
+        fun `fail to delete an object without login`() {
+            mockMvc.delete("$URL/buckets/bucket/key") {
+                accept = MediaType.APPLICATION_JSON
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isForbidden() }
             }
         }
     }

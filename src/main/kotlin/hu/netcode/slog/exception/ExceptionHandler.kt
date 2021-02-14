@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.servlet.NoHandlerFoundException
 import java.lang.NullPointerException
 import javax.servlet.http.HttpServletRequest
 import javax.validation.ConstraintViolationException
@@ -69,5 +70,15 @@ class ExceptionHandler(
     fun handleException(req: HttpServletRequest, ex: Exception): Map<String, Any> {
         logger.error("{} {} {}", ex::class, req, ex)
         return exceptionService.createResponseMap(ex, HttpStatus.INTERNAL_SERVER_ERROR)
+    }
+
+    @ExceptionHandler(
+        value = [
+            NoHandlerFoundException::class
+        ]
+    )
+    fun handleNoHandlerFoundException(req: HttpServletRequest, ex: Exception): Map<String, Any> {
+        logger.error("NoHandlerFoundException {} {}", ex::class, req, ex)
+        return exceptionService.createResponseMap(ex, HttpStatus.NOT_FOUND)
     }
 }
