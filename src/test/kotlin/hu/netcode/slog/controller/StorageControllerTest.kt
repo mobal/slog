@@ -120,18 +120,6 @@ class StorageControllerTest {
                 status { isInternalServerError() }
             }
         }
-        @Test
-        fun `fail to add object because csrf token is invalid`() {
-            mockMvc.post(url) {
-                accept = MediaType.APPLICATION_JSON
-                content = objectMapper.writeValueAsString(dto)
-                contentType = MediaType.APPLICATION_JSON
-                with(csrf().useInvalidToken())
-                with(oauth2Login())
-            }.andExpect {
-                status { isForbidden() }
-            }
-        }
 
         @Test
         fun `fail to add object without login`() {
@@ -141,7 +129,7 @@ class StorageControllerTest {
                 contentType = MediaType.APPLICATION_JSON
                 with(csrf())
             }.andExpect {
-                status { isUnauthorized() }
+                status { isForbidden() }
             }
         }
     }
@@ -205,25 +193,13 @@ class StorageControllerTest {
         }
 
         @Test
-        fun `fail to delete an object because csrf token is invalid`() {
-            mockMvc.delete("$URL/buckets/bucket/key") {
-                accept = MediaType.APPLICATION_JSON
-                contentType = MediaType.APPLICATION_JSON
-                with(csrf().useInvalidToken())
-                with(oauth2Login())
-            }.andExpect {
-                status { isForbidden() }
-            }
-        }
-
-        @Test
         fun `fail to delete an object without login`() {
             mockMvc.delete("$URL/buckets/bucket/key") {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
                 with(csrf())
             }.andExpect {
-                status { isUnauthorized() }
+                status { isForbidden() }
             }
         }
     }

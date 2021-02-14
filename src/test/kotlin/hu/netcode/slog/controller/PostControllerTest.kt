@@ -115,19 +115,6 @@ class PostControllerTest {
         }
 
         @Test
-        fun `failed to create post because csrf token is invalid`() {
-            mockMvc.post(URL) {
-                accept = MediaType.APPLICATION_JSON
-                content = objectMapper.writeValueAsString(dto)
-                contentType = MediaType.APPLICATION_JSON
-                with(csrf().useInvalidToken())
-                with(oauth2Login())
-            }.andExpect {
-                status { isForbidden() }
-            }
-        }
-
-        @Test
         fun `failed to create post without login`() {
             mockMvc.post(URL) {
                 accept = MediaType.APPLICATION_JSON
@@ -135,7 +122,7 @@ class PostControllerTest {
                 contentType = MediaType.APPLICATION_JSON
                 with(csrf())
             }.andExpect {
-                status { isUnauthorized() }
+                status { isForbidden() }
             }
         }
     }
@@ -176,19 +163,6 @@ class PostControllerTest {
         }
 
         @Test
-        fun `failed to delete post because csrf token is invalid`() {
-            mockMvc.delete(url) {
-                accept = MediaType.APPLICATION_JSON
-                content = objectMapper.writeValueAsString(dto)
-                contentType = MediaType.APPLICATION_JSON
-                with(csrf().useInvalidToken())
-                with(oauth2Login())
-            }.andExpect {
-                status { isForbidden() }
-            }
-        }
-
-        @Test
         fun `failed to delete post without login`() {
             mockMvc.delete(url) {
                 accept = MediaType.APPLICATION_JSON
@@ -196,7 +170,7 @@ class PostControllerTest {
                 contentType = MediaType.APPLICATION_JSON
                 with(csrf())
             }.andExpect {
-                status { isUnauthorized() }
+                status { isForbidden() }
             }
         }
     }
@@ -316,7 +290,7 @@ class PostControllerTest {
                 contentType = MediaType.APPLICATION_JSON
                 with(csrf())
             }.andExpect {
-                status { isUnauthorized() }
+                status { isForbidden() }
             }
         }
     }

@@ -112,24 +112,12 @@ class UserControllerTest {
         }
 
         @Test
-        fun `fail to delete user because csrf token is invalid`() {
-            every { userService.delete(any()) } throws Exception(ERROR_MESSAGE)
-            mockMvc.delete(url) {
-                accept = MediaType.APPLICATION_JSON
-                with(csrf().useInvalidToken())
-                with(oauth2Login())
-            }.andExpect {
-                status { isForbidden() }
-            }
-        }
-
-        @Test
         fun `fail to delete user without login`() {
             mockMvc.delete(url) {
                 accept = MediaType.APPLICATION_JSON
                 with(csrf())
             }.andExpect {
-                status { isUnauthorized() }
+                status { isForbidden() }
             }
         }
     }
@@ -233,20 +221,6 @@ class UserControllerTest {
         }
 
         @Test
-        fun `failed to create user because csrf token is invalid`() {
-            every { userService.create(any()) } throws Exception(ERROR_MESSAGE)
-            mockMvc.post(url) {
-                accept = MediaType.APPLICATION_JSON
-                content = objectMapper.writeValueAsString(dto)
-                contentType = MediaType.APPLICATION_JSON
-                with(csrf().useInvalidToken())
-                with(oauth2Login())
-            }.andExpect {
-                status { isForbidden() }
-            }
-        }
-
-        @Test
         fun `failed to create user without login`() {
             mockMvc.post(url) {
                 accept = MediaType.APPLICATION_JSON
@@ -254,7 +228,7 @@ class UserControllerTest {
                 contentType = MediaType.APPLICATION_JSON
                 with(csrf())
             }.andExpect {
-                status { isUnauthorized() }
+                status { isForbidden() }
             }
         }
     }
@@ -321,19 +295,6 @@ class UserControllerTest {
         }
 
         @Test
-        fun `fail to update user because csrf token is invalid`() {
-            mockMvc.put(url) {
-                accept = MediaType.APPLICATION_JSON
-                content = objectMapper.writeValueAsString(dto)
-                contentType = MediaType.APPLICATION_JSON
-                with(csrf().useInvalidToken())
-                with(oauth2Login())
-            }.andExpect {
-                status { isForbidden() }
-            }
-        }
-
-        @Test
         fun `fail to update user without login`() {
             mockMvc.put(url) {
                 accept = MediaType.APPLICATION_JSON
@@ -341,7 +302,7 @@ class UserControllerTest {
                 contentType = MediaType.APPLICATION_JSON
                 with(csrf())
             }.andExpect {
-                status { isUnauthorized() }
+                status { isForbidden() }
             }
         }
     }
