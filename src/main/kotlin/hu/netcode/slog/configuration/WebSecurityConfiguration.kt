@@ -31,7 +31,6 @@ class WebSecurityConfiguration(
             it.antMatchers(HttpMethod.POST).authenticated()
             it.antMatchers(HttpMethod.PUT).authenticated()
         }
-        // TODO: Re-enable CSRF
         http?.csrf()?.disable()
         http?.logout {
             it.permitAll()
