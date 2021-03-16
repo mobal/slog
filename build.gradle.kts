@@ -5,13 +5,13 @@ plugins {
     id("com.avast.gradle.docker-compose") version "0.14.0"
     id("idea")
     id("jacoco")
-    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.30"
-    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
-    id("org.sonarqube") version "3.0"
-    id("org.springframework.boot") version "2.4.1"
-    id("io.spring.dependency-management") version "1.0.10.RELEASE"
-    kotlin("jvm") version "1.4.30"
-    kotlin("plugin.spring") version "1.4.30"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.31"
+    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+    id("org.sonarqube") version "3.1.1"
+    id("org.springframework.boot") version "2.4.3"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    kotlin("jvm") version "1.4.31"
+    kotlin("plugin.spring") version "1.4.31"
 }
 
 group = "hu.netcode"
