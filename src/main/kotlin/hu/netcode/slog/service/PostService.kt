@@ -7,7 +7,7 @@ import hu.netcode.slog.data.dto.input.PostDto
 import hu.netcode.slog.data.repository.PostRepository
 import hu.netcode.slog.exception.DocumentNotFoundException
 import hu.netcode.slog.properties.PagingProperties
-import org.slf4j.LoggerFactory
+import org.apache.logging.log4j.LogManager
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import java.time.ZonedDateTime
@@ -26,7 +26,7 @@ class PostService(
         const val WORDS_PER_MINUTE = 200
     }
 
-    private val logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LogManager.getLogger(javaClass)
 
     private fun calculateReadingTime(body: String): Int {
         return ceil((StringTokenizer(body).countTokens() / 200).toDouble()).toInt()

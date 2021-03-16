@@ -4,7 +4,7 @@ import hu.netcode.slog.data.document.User
 import hu.netcode.slog.data.dto.input.UserDto
 import hu.netcode.slog.properties.PagingProperties
 import hu.netcode.slog.service.UserService
-import org.slf4j.LoggerFactory
+import org.apache.logging.log4j.LogManager
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -32,7 +32,7 @@ class UserController(
     private val pagingProperties: PagingProperties,
     private val userService: UserService
 ) {
-    private val logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LogManager.getLogger(javaClass)
 
     @DeleteMapping(value = ["/{username}"])
     @ResponseStatus(value = HttpStatus.NO_CONTENT)

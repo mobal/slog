@@ -5,7 +5,7 @@ import hu.netcode.slog.data.dto.output.BucketDto
 import hu.netcode.slog.data.dto.output.ObjectMetadataDto
 import hu.netcode.slog.data.dto.output.S3ObjectDto
 import hu.netcode.slog.service.StorageService
-import org.slf4j.LoggerFactory
+import org.apache.logging.log4j.LogManager
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -29,7 +29,7 @@ import javax.validation.Valid
 class StorageController(
     private val storageService: StorageService
 ) {
-    private val logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LogManager.getLogger(javaClass)
 
     @PostMapping(value = ["/buckets/{bucketName}"])
     @ResponseStatus(value = HttpStatus.CREATED)

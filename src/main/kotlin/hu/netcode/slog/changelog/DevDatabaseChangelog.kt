@@ -8,7 +8,7 @@ import com.github.slugify.Slugify
 import hu.netcode.slog.data.document.Meta
 import hu.netcode.slog.data.document.Post
 import hu.netcode.slog.data.document.User
-import org.slf4j.LoggerFactory
+import org.apache.logging.log4j.LogManager
 import org.springframework.context.annotation.Profile
 import java.time.ZonedDateTime
 import java.util.Locale
@@ -20,7 +20,7 @@ class DevDatabaseChangelog {
         const val MAX = 30
     }
 
-    private val logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LogManager.getLogger(javaClass)
 
     private var faker: Faker = Faker(Locale("hu-HU"))
     private var slugify: Slugify = Slugify()

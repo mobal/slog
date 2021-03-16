@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
-import org.slf4j.LoggerFactory
+import org.apache.logging.log4j.LogManager
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -33,7 +33,7 @@ import javax.validation.Valid
 class PostController(
     private val postService: PostService
 ) {
-    private val logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LogManager.getLogger(javaClass)
 
     @Operation(
         description = "Create a new post",

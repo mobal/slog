@@ -11,7 +11,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectResult
 import com.amazonaws.services.s3.model.S3Object
 import hu.netcode.slog.result.Result
-import org.slf4j.LoggerFactory
+import org.apache.logging.log4j.LogManager
 import org.springframework.stereotype.Service
 import java.io.IOException
 import java.io.InputStream
@@ -21,7 +21,7 @@ import java.net.URI
 class S3Service(
     private val s3Client: AmazonS3
 ) {
-    private val logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LogManager.getLogger(javaClass)
 
     fun copyObject(
         sourceBucketName: String,

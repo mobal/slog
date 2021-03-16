@@ -4,7 +4,7 @@ import hu.netcode.slog.data.document.User
 import hu.netcode.slog.data.dto.input.UserDto
 import hu.netcode.slog.data.repository.UserRepository
 import hu.netcode.slog.exception.DocumentNotFoundException
-import org.slf4j.LoggerFactory
+import org.apache.logging.log4j.LogManager
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -19,7 +19,7 @@ class UserService(
         const val ERROR_MESSAGE_USER_NOT_FOUND = "The requested user was not found"
     }
 
-    private val logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LogManager.getLogger(javaClass)
 
     fun delete(username: String) {
         userRepository.deleteByUsername(username)
