@@ -2,7 +2,6 @@ package hu.netcode.slog.configuration
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import hu.netcode.slog.service.ExceptionService
-import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -20,8 +19,6 @@ class WebSecurityConfiguration(
     private companion object {
         const val BASE_URL: String = "/"
     }
-
-    private val logger = LoggerFactory.getLogger(WebSecurityConfigurerAdapter::class.java)
 
     override fun configure(http: HttpSecurity?) {
         http?.authorizeRequests {

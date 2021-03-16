@@ -8,7 +8,7 @@ import hu.netcode.slog.extension.toBucketDto
 import hu.netcode.slog.extension.toObjectMetaDataDto
 import hu.netcode.slog.extension.toS3ObjectDto
 import hu.netcode.slog.result.Result
-import org.slf4j.LoggerFactory
+import org.apache.logging.log4j.LogManager
 import org.springframework.http.CacheControl
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -22,7 +22,7 @@ import java.util.Base64
 class StorageService(
     private val s3Service: S3Service
 ) {
-    private val logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LogManager.getLogger(javaClass)
 
     private fun decode(data: String): Result<ByteArray> {
         return try {
