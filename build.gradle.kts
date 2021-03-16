@@ -5,13 +5,13 @@ plugins {
     id("com.avast.gradle.docker-compose") version "0.14.0"
     id("idea")
     id("jacoco")
-    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.30"
-    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
-    id("org.sonarqube") version "3.0"
-    id("org.springframework.boot") version "2.4.1"
-    id("io.spring.dependency-management") version "1.0.10.RELEASE"
-    kotlin("jvm") version "1.4.30"
-    kotlin("plugin.spring") version "1.4.30"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.31"
+    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+    id("org.sonarqube") version "3.1.1"
+    id("org.springframework.boot") version "2.4.3"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    kotlin("jvm") version "1.4.31"
+    kotlin("plugin.spring") version "1.4.31"
 }
 
 group = "hu.netcode"
@@ -29,22 +29,22 @@ repositories {
 }
 
 dependencies {
-    implementation("com.amazonaws:aws-java-sdk-s3:1.11.930")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.12.1")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.12.1")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.1")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
-    implementation("com.github.cloudyrock.mongock:mongock-spring-v5:4.1.19")
-    implementation("com.github.cloudyrock.mongock:mongodb-springdata-v3-driver:4.1.19")
+    implementation("com.amazonaws:aws-java-sdk-s3:1.11.975")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.12.2")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.12.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.2")
+    implementation("com.github.cloudyrock.mongock:mongock-spring-v5:4.3.7")
+    implementation("com.github.cloudyrock.mongock:mongodb-springdata-v3-driver:4.3.7")
     implementation("com.github.javafaker:javafaker:1.0.2")
     implementation("com.github.slugify:slugify:2.4")
-    implementation("org.apache.commons:commons-lang3:3.11")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.springdoc:springdoc-openapi-data-rest:1.5.2")
-    implementation("org.springdoc:springdoc-openapi-kotlin:1.5.2")
-    implementation("org.springdoc:springdoc-openapi-security:1.5.2")
-    implementation("org.springdoc:springdoc-openapi-ui:1.5.2")
+    implementation("org.springdoc:springdoc-openapi-data-rest:1.5.5")
+    implementation("org.springdoc:springdoc-openapi-kotlin:1.5.5")
+    implementation("org.springdoc:springdoc-openapi-security:1.5.5")
+    implementation("org.springdoc:springdoc-openapi-ui:1.5.5")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
@@ -54,7 +54,7 @@ dependencies {
     implementation("org.springframework.security:spring-security-web")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("com.ninja-squad:springmockk:3.0.1")
-    testImplementation("io.mockk:mockk-common:1.10.4")
+    testImplementation("io.mockk:mockk-common:1.10.6")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
@@ -80,7 +80,7 @@ tasks.withType<KotlinCompile> {
 }
 
 jacoco {
-    toolVersion = "0.8.5"
+    toolVersion = "0.8.6"
 }
 
 sonarqube {

@@ -89,7 +89,6 @@ class PostControllerTest {
         @Test
         fun `successfully create post`() {
             mockMvc.post(URL) {
-                var accept = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(dto)
                 contentType = MediaType.APPLICATION_JSON
                 with(csrf())
