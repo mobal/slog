@@ -21,6 +21,10 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 configurations {
     all {
         exclude(group = "org.mockito")
+        exclude(
+            group = "org.springframework.boot",
+            module = "spring-boot-starter-logging"
+        )
     }
 }
 
@@ -47,6 +51,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-ui:1.5.5")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
