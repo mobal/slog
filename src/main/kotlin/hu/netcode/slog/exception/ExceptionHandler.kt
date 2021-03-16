@@ -79,6 +79,6 @@ class ExceptionHandler(
     )
     fun handleNoHandlerFoundException(req: HttpServletRequest, ex: Exception): Map<String, Any> {
         logger.error("NoHandlerFoundException {} {}", ex::class, req, ex)
-        return exceptionService.createResponseMap(ex, HttpStatus.NOT_FOUND)
+        return exceptionService.createResponseMap("Not found", HttpStatus.NOT_FOUND)
     }
 }
