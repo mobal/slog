@@ -1,17 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.adarshr.test-logger") version "2.1.1"
-    id("com.avast.gradle.docker-compose") version "0.14.0"
+    id("com.adarshr.test-logger") version "3.0.0"
+    id("com.avast.gradle.docker-compose") version "0.14.3"
     id("idea")
     id("jacoco")
-    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.31"
-    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
-    id("org.sonarqube") version "3.1.1"
-    id("org.springframework.boot") version "2.4.3"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.5.20"
+    id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
+    id("org.sonarqube") version "3.3"
+    id("org.springframework.boot") version "2.5.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.4.31"
-    kotlin("plugin.spring") version "1.4.31"
+    kotlin("jvm") version "1.5.20"
+    kotlin("plugin.spring") version "1.5.20"
 }
 
 group = "hu.netcode"
