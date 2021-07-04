@@ -31,14 +31,14 @@ class ExceptionHandler(
     @ExceptionHandler(value = [AmazonClientException::class])
     fun handleAmazonClientException(req: HttpServletRequest, ex: AmazonClientException):
         ResponseEntity<Map<String, Any>> {
-            logger.error("{} {} {}", ex::class, req, ex)
-            val httpStatus = if (ex.message!!.contains(STATUS_CODE)) {
-                HttpStatus.valueOf("(Status Code: \\d{3})".toRegex().find(ex.message!!)?.value?.takeLast(3)!!.toInt())
-            } else {
-                HttpStatus.INTERNAL_SERVER_ERROR
-            }
-            return ResponseEntity(exceptionService.createResponseMap(ex, httpStatus), httpStatus)
+        logger.error("{} {} {}", ex::class, req, ex)
+        val httpStatus = if (ex.message!!.contains(STATUS_CODE)) {
+            HttpStatus.valueOf("(Status Code: \\d{3})".toRegex().find(ex.message!!)?.value?.takeLast(3)!!.toInt())
+        } else {
+            HttpStatus.INTERNAL_SERVER_ERROR
         }
+        return ResponseEntity(exceptionService.createResponseMap(ex, httpStatus), httpStatus)
+    }
 
     @ExceptionHandler(
         value = [
@@ -49,9 +49,9 @@ class ExceptionHandler(
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     fun handleConstraintViolationException(req: HttpServletRequest, ex: ConstraintViolationException):
         Map<String, Any> {
-            logger.error("ConstraintViolationException {} {}", req, ex)
-            return exceptionService.createResponseMap(ex, HttpStatus.BAD_REQUEST)
-        }
+        logger.error("ConstraintViolationException {} {}", req, ex)
+        return exceptionService.createResponseMap(ex, HttpStatus.BAD_REQUEST)
+    }
 
     @ExceptionHandler(value = [DocumentNotFoundException::class])
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
@@ -79,6 +79,6 @@ class ExceptionHandler(
     )
     fun handleNoHandlerFoundException(req: HttpServletRequest, ex: Exception): Map<String, Any> {
         logger.error("NoHandlerFoundException {} {}", ex::class, req, ex)
-        return exceptionService.createResponseMap(ex, HttpStatus.NOT_FOUND)
+        return exceptionService.createResponseMap("Not found", HttpStatus.NOT_FOUND)
     }
 }
